@@ -1,17 +1,13 @@
-import { Link } from 'react-router-dom';
-import { Button, Nav } from 'react-bootstrap';
+import { Container, Nav, Navbar, NavLink } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const rightButtons = (props) => {
     if (props.showAccountButtons !== false && props.loggedIn === false) {
         return (
             <Nav className="justify-content-end">
-                <Link to='/registerDesigner'>
-                    <Button>Register designer</Button>
-                </Link>
-                <Link to='/login'>
-                    <Button>Login</Button>
-                </Link>
+                <NavLink href='/registerDesigner'>Register designer</NavLink>
+                <NavLink href='/login'>Login</NavLink>
+                <NavLink href='/designerHomepage'>Designer homepage</NavLink> { /* (for testing, remove when everything linked correctly) */ }
             </Nav>
         )
     }
@@ -20,13 +16,12 @@ const rightButtons = (props) => {
 export default function Header(props) {
     return (
       <>
-        <Nav>
-            <Link to='/'>
-                <Button>Home</Button>
-            </Link>
-        </Nav>
-        { rightButtons(props) }
-        
+        <Navbar bg='dark' variant='dark'>
+            <Container>
+                <Navbar.Brand href='/'>GoKickMe</Navbar.Brand>
+                { rightButtons(props) }
+            </Container>
+        </Navbar>
       </>
     );
   }
