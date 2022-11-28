@@ -34,8 +34,7 @@ function RegisterDesigner(props) {
       .then(response => {
         const designer = response.data.body.designer;
         console.log(designer);
-        updateState(designer);
-        // redirect here
+        updateState( { designer: designer });
       }).catch(error => {
         console.log(error);
         document.getElementById('message').innerHTML = email + ` is already in use.`
@@ -45,37 +44,37 @@ function RegisterDesigner(props) {
     }
   }
 
-  if (typeof state !== 'undefined') {
+  if (typeof state === 'undefined') {
     return (
       <>
-          <Navigate 
-              to={'/designerHomepage'}
-              state={{ designer: state }}
-          />
+        <Header showAccountButtons={ false } loggedIn={ false }/>
+        <h1>Register designer</h1>
+        <Form.Group controlId='email'>
+            <Form.Label>Username</Form.Label>
+            <Form.Control type='text' placeholder='Email' autoComplete='off' />
+        </Form.Group>
+        <Form.Group controlId='name'>
+            <Form.Label>Name</Form.Label>
+            <Form.Control type='text' placeholder='Name' autoComplete='off' />
+        </Form.Group>
+  
+        <Button onClick={forceRegister}>
+            Register
+        </Button>
+        <p id='message'>&nbsp;</p>
+        <p>If you already have an account, <a href='/login'>login here</a>.</p>
       </>
-    )
+    );
   }
 
-  return (
+  else return (
     <>
-      <Header showAccountButtons={ false } loggedIn={ false }/>
-      <h1>Register designer</h1>
-      <Form.Group controlId='email'>
-          <Form.Label>Username</Form.Label>
-          <Form.Control type='text' placeholder='Email' autoComplete='off' />
-      </Form.Group>
-      <Form.Group controlId='name'>
-          <Form.Label>Name</Form.Label>
-          <Form.Control type='text' placeholder='Name' autoComplete='off' />
-      </Form.Group>
-
-      <Button onClick={forceRegister}>
-          Register
-      </Button>
-      <p id='message'>&nbsp;</p>
-      <p>If you already have an account, <a href='/login'>login here</a>.</p>
+        <Navigate 
+            to={'/designerHomepage'}
+            state={{ designer: state.designer }}
+        />
     </>
-  );
+  )
 }
 
 export default RegisterDesigner;
