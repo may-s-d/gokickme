@@ -1,39 +1,61 @@
+import { useCallback, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import  { Navigate } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js';
 
-const attemptRegister = () => {
-  const email = document.getElementById('email').value;
-  if (email === '') {
-    document.getElementById('message').innerHTML = 'Please enter an email address.';
-    return false;
-  }
-  const name = document.getElementById('name').value;
-  if (name === '') {
-    document.getElementById('message').innerHTML = 'Please enter a name.';
-    return false;
-  }
-  else {
-    const body = {};
-    body['email'] = email;
-    body['name'] = name;
-    const data = { 'body': JSON.stringify(body) }
-    aws.post('/registerDesigner', data)
-    .then(response => {
-      const designer = response.data.body.designer;
-      console.log(designer);
-      // redirect here
-    }).catch(error => {
-      console.log(error);
-      document.getElementById('message').innerHTML = email + ` is already in use.`
-      return false;
-      }
-    )
-  }
-}
-
 
 function RegisterDesigner(props) {
+  const [state, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+  
+  const forceRegister = () => {
+    attemptRegister();
+    forceUpdate();
+  }
+
+  const attemptRegister = () => {
+    const email = document.getElementById('email').value;
+    if (email === '') {
+      document.getElementById('message').innerHTML = 'Please enter an email address.';
+      return false;
+    }
+    const name = document.getElementById('name').value;
+    if (name === '') {
+      document.getElementById('message').innerHTML = 'Please enter a name.';
+      return false;
+    }
+    else {
+      const body = {};
+      body['email'] = email;
+      body['name'] = name;
+      const data = { 'body': JSON.stringify(body) }
+      aws.post('/registerDesigner', data)
+      .then(response => {
+        const designer = response.data.body.designer;
+        console.log(designer);
+        updateState(designer);
+        // redirect here
+      }).catch(error => {
+        console.log(error);
+        document.getElementById('message').innerHTML = email + ` is already in use.`
+        return false;
+        }
+      )
+    }
+  }
+
+  if (typeof state !== 'undefined') {
+    return (
+      <>
+          <Navigate 
+              to={'/designerHomepage'}
+              state={{ designer: state }}
+          />
+      </>
+    )
+  }
+
   return (
     <>
       <Header showAccountButtons={ false } loggedIn={ false }/>
@@ -47,7 +69,7 @@ function RegisterDesigner(props) {
           <Form.Control type='text' placeholder='Name' autoComplete='off' />
       </Form.Group>
 
-      <Button onClick={attemptRegister}>
+      <Button onClick={forceRegister}>
           Register
       </Button>
       <p id='message'>&nbsp;</p>

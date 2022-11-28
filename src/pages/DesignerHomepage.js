@@ -4,6 +4,7 @@ import  { Navigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header.js'
 function DesignerHomepage(props) {
     const loc = useLocation();
+    console.log(loc);
     if (loc.state === null || typeof loc.state.designer === 'undefined') {
         return (
             <>
@@ -20,7 +21,7 @@ function DesignerHomepage(props) {
         <Header loggedIn={ true }/>
         <Button href='/createProject'>Create new project</Button>
         <Container>
-            here there would be the projects, but i couldn't remember if we wanted to change the GUI since our mockup, so i didn't put a layout here. we'll figure it out later. lol
+            logged in: { loc.state.designer.email }
         </Container>
         </>
     );
