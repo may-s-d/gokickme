@@ -1,5 +1,5 @@
 import { Button, Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
+import  { Navigate, useLocation } from 'react-router-dom';
 
 import Header from '../components/Header.js'
 
@@ -21,7 +21,10 @@ const attemptLogin = () => {
     xhr.onload = () => {
       if (xhr.readyState === xhr.DONE) {
         if (xhr.status === 200) {
-          // login
+          <Navigate 
+            to={'/designerHomepage'}
+            state={{ designer: JSON.parse(xhr.response).designer }}
+          />
         }
         else {
           // error. will probably do extra bits, but this works for now
@@ -33,6 +36,11 @@ const attemptLogin = () => {
 }
 
 function Login(props) {
+  let msg = ' ';
+  const loc = useLocation();
+  if (loc.state !== null && loc.state.error !== 'undefined') {
+    msg = loc.state.error;
+  }
   return (
     <>
       <Header showAccountButtons={ false } loggedIn={ false }/>
@@ -45,7 +53,8 @@ function Login(props) {
       <Button onClick={attemptLogin}>
           Log In
       </Button>
-      <p id='message'>&nbsp;</p>
+      <p id='message'>{ msg }</p>
+      <p>If you don't already have an account, <a href='/registerDesigner'>register here</a>.</p>
     </>
   );
 }

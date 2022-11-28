@@ -1,9 +1,6 @@
 import { Button, Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
-
-import Header from '../components/Header.js'
-
-const dregisterurl = ''; // THIS IS NOT DEFINED YET. TO ADD WHEN WE HAVE IT
+import { aws } from '../AWS.js';
+import Header from '../components/Header.js';
 
 const attemptRegister = () => {
   const email = document.getElementById('email').value;
@@ -17,28 +14,26 @@ const attemptRegister = () => {
     return false;
   }
   else {
-    const data = {};
-    data['email'] = email;
-    data['name'] = name;
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', dregisterurl, true);
-    xhr.send(JSON.stringify(data));
-
-    xhr.onload = () => {
-      if (xhr.readyState === xhr.DONE) {
-        if (xhr.status === 200) {
-          // login
-        }
-        else {
-          // error. will probably do extra bits, but this works for now
-          document.getElementById('message').innerHTML = email + ` is already in use.`;
-        }
+    const body = {};
+    body['email'] = email;
+    body['name'] = name;
+    const data = { 'body': JSON.stringify(body) }
+    aws.post('/registerDesigner', data)
+    .then(response => {
+      const designer = response.data.body.designer;
+      console.log(designer);
+      // redirect here
+    }).catch(error => {
+      console.log(error);
+      document.getElementById('message').innerHTML = email + ` is already in use.`
+      return false;
       }
-    };
+    )
   }
 }
 
-function Login(props) {
+
+function RegisterDesigner(props) {
   return (
     <>
       <Header showAccountButtons={ false } loggedIn={ false }/>
@@ -61,4 +56,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default RegisterDesigner;
