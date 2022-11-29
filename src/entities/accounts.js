@@ -1,5 +1,5 @@
 //An abstract class that represents a user in GoKickMe
-class User {
+export class User {
     User(email, name){
         //If the class that is calling this construct is User
         if (this.constructor == User) {
@@ -13,18 +13,18 @@ class User {
     }
 
     //get a user's email
-    export getEmail(){
+    getEmail(){
         return this.email
     }
 
     //get a user's name
-    export getName(){
+    getName(){
         return this.name
     }
 }
 
 //a class (extending User) that represent an dmin in GoKickMe
-class Admin extends User {
+export class Admin extends User {
     Admin(email, name){
         //call the higher class' constructor 
         super(email, name)
@@ -32,7 +32,7 @@ class Admin extends User {
 }
 
 //a class (extending User) that represent a supporter in GoKickMe
-class Supporter extends User {
+export class Supporter extends User {
     Supporter(email, name, budget){
         //call the higher class' constructor 
         super(email, name)
@@ -62,7 +62,7 @@ class Supporter extends User {
 }
 
 //a class (extending User) that represent a design in GoKickMe
-class Designer extends User {
+export class Designer extends User {
     Designer(email, name){
         //call the higher class' constructor 
         super(email, name)
