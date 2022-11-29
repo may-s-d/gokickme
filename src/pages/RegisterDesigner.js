@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import  { Navigate } from 'react-router-dom';
 import { aws } from '../AWS.js';
@@ -7,12 +7,6 @@ import Header from '../components/Header.js';
 
 function RegisterDesigner(props) {
   const [state, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
-  
-  const forceRegister = () => {
-    attemptRegister();
-    forceUpdate();
-  }
 
   const attemptRegister = () => {
     const email = document.getElementById('email').value;
@@ -58,7 +52,7 @@ function RegisterDesigner(props) {
             <Form.Control type='text' placeholder='Name' autoComplete='off' />
         </Form.Group>
   
-        <Button onClick={forceRegister}>
+        <Button onClick={attemptRegister}>
             Register
         </Button>
         <p id='message'>&nbsp;</p>

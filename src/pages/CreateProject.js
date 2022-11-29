@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import  { Navigate, useLocation } from 'react-router-dom';
 import { aws } from '../AWS.js';
@@ -7,12 +7,6 @@ import Header from '../components/Header.js'
 
 function CreateProject(props) {
   const [state, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
-  
-  const forceCreate = () => {
-    attemptCreate();
-    forceUpdate();
-  }
 
   const attemptCreate = () => {
     const name = document.getElementById('name').value;
@@ -111,7 +105,7 @@ function CreateProject(props) {
               <Form.Control type="date" placeholder="Deadline" />
           </Form.Group>
 
-          <Button onClick={forceCreate}>
+          <Button onClick={attemptCreate}>
               Create project
           </Button>
           <p id='message'>&nbsp;</p>

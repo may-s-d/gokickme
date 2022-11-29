@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import  { Navigate, useLocation } from 'react-router-dom';
 import { aws } from '../AWS.js';
@@ -7,12 +7,6 @@ import Header from '../components/Header.js'
 
 function Login(props) {
   const [state, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
-  
-  const forceLogin = () => {
-    attemptLogin();
-    forceUpdate();
-  }
 
   const attemptLogin = () => {
     const email = document.getElementById('email').value;
@@ -62,7 +56,7 @@ function Login(props) {
             <Form.Control type='text' placeholder='Email' autoComplete='off' />
         </Form.Group>
   
-        <Button onClick={forceLogin}>
+        <Button onClick={attemptLogin}>
             Log In
         </Button>
         <p id='message'>{ msg }</p>
