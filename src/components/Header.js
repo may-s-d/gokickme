@@ -49,13 +49,13 @@ export default function Header(props) {
                 </Nav>
             );
         }
-        // else if (props.showAccountButtons !== false && props.loggedIn === true) {
-        //     return (
-        //         <Nav className='justify-content-end'>
-        //             <NavLink href='/logout'>Logout</NavLink>
-        //         </Nav>
-        //     )
-        // }
+        else if (props.showAccountButtons !== false && props.loggedIn === true) {
+            return (
+                <Nav className='justify-content-end'>
+                    <NavLink href='/logout'>Logout</NavLink>
+                </Nav>
+            )
+        }
     }
 
     return (

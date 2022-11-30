@@ -59,7 +59,7 @@ function CreateProject() {
     }
   }
 
-  if (typeof projects === 'undefined') {
+    if (typeof projects === 'undefined') { // has not created a project yet
         return (
           <>
           <Header loggedIn={ true } />
@@ -100,14 +100,13 @@ function CreateProject() {
           </>
       )
     }
-    else return (
-          <>
-          <Navigate 
-              to={'/designerHomepage'}
-          />
-      </>
-    )
     
+    else return (
+        <>
+        <Navigate 
+            to={'/designerHomepage'} />
+        </>
+    )
   }
   
   export default CreateProject;

@@ -83,7 +83,7 @@ function App() {
           <Route path='/designerHomepage' element={ designerPage(<DesignerHomepage />) } />
           <Route path='/createProject' element={ designerPage(<CreateProject />) } />
           <Route path='/adminHomepage' element={ adminPage(<AdminHomepage />) } />
-          {/* <Route path='/logout' element={ logout() } /> */}
+          <Route path='/logout' element={ logout() } />
         </Routes>
       </BrowserRouter>
     </>
