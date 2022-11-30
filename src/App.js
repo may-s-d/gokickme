@@ -33,6 +33,7 @@ function App() {
 
   const designerPage = (page) => {
     if (typeof designer === 'undefined') {
+      console.log('undefined')
       return (
         <Navigate 
         to={'/login'}

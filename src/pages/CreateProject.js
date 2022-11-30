@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import  { Navigate, useLocation } from 'react-router-dom';
+import  { Navigate } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
 
 
-function CreateProject(props) {
-  const [state, updateState] = useState();
+function CreateProject() {
+  const [projects, updateProjects] = useState();
+  const designer = JSON.parse(window.sessionStorage.getItem('designer'));
 
   const attemptCreate = () => {
     const name = document.getElementById('name').value;
@@ -43,13 +44,12 @@ function CreateProject(props) {
       body['type'] = type;
       body['amount'] = amount;
       body['deadline'] = deadline;
-      body['designer'] = loc.state.designer.email;
+      body['designer'] = designer.name;
       const data = { 'body': JSON.stringify(body) }
       aws.post('/createProject', data)
       .then(response => {
-        const designer = response.data.body.designer;
-        console.log(designer);
-        updateState( { designer: designer });
+        const projects = response.data.body.designer.projects;
+        updateProjects(projects);
       }).catch(error => {
         console.log(error);
         document.getElementById('message').innerHTML = name + ` is already in use.`;
@@ -59,22 +59,10 @@ function CreateProject(props) {
     }
   }
 
-  const loc = useLocation();
-  console.log(loc);
-  if (loc.state === null || typeof loc.state.designer === 'undefined') {
-      return (
-          <>
-              <Navigate 
-                  to={'/login'}
-                  state={{ error: `Please login to view that page.` }}
-              />
-          </>
-      )
-  }
-  else if (typeof state === 'undefined') {
+  if (typeof projects === 'undefined') {
         return (
           <>
-          <Header loggedIn={ true } designer={ loc.state.designer }/>
+          <Header loggedIn={ true } />
           <h1>Create project</h1>
           <Form.Group controlId='name'>
               <Form.Label>Project name</Form.Label>
@@ -116,7 +104,6 @@ function CreateProject(props) {
           <>
           <Navigate 
               to={'/designerHomepage'}
-              state={{ designer: state.designer }}
           />
       </>
     )

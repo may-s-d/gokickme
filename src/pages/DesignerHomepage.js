@@ -5,21 +5,21 @@ import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
 
 function DesignerHomepage() {
-    const designer = JSON.parse(window.sessionStorage.getItem('designer'));
     const [projects, updateProjects] = useState();
+    const designer = JSON.parse(window.sessionStorage.getItem('designer'));
+    
     const getProjects = () => {
         const body = {};
         body['email'] = designer.email;
         const data = { 'body': JSON.stringify(body) }
         aws.post('/designerProjects', data)
         .then(response => {
-            const p = response.data.body.projects;
-            updateProjects( { projects: p });
+            const projects = response.data.body.projects;
+            updateProjects(projects);
         })
     }
     
     const renderProjects = () => {
-        const projects = designer.projects;
         const renderedProjects = projects.map((project, index) => {
             return (
                 <Container key={index}>
