@@ -52,7 +52,7 @@ function Login() {
     return (
       <>
       <Navigate
-      to={'/'} />
+      to={'/designerHomepage'} />
       </>
     )
   }

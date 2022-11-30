@@ -1,8 +1,45 @@
 import { Container, Nav, Navbar, NavLink } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Header(props) {
+    const homepage = () => {
+        let designer = window.sessionStorage.getItem('designer');
+        let supporter = window.sessionStorage.getItem('supporter');
+        let admin = window.sessionStorage.getItem('admin');
+        if (designer !== null) {
+            return (
+                <>
+                <Navigate
+                to={'/designerHomepage'} />
+                </>
+            )
+        }
+        else if (supporter !== null) {
+            return (
+                <>
+                <Navigate
+                to={'/supporterHomepage'} />
+                </>
+            )
+        }
+
+        else if (admin !== null) {
+            return (
+                <>
+                <Navigate
+                to={'/adminHomepage'} />
+                </>
+            )
+        }
+
+        else return (
+            <>
+            <Navigate
+            to={'/'} />
+            </>
+        )
+    }
     const rightButtons = () => {
         if (props.showAccountButtons !== false && props.loggedIn === false) {
             return (
@@ -27,7 +64,7 @@ export default function Header(props) {
             <Container>
                 { <Navbar.Brand 
                 as={ Link }
-                to={ '/' }>
+                to={ homepage }>
                     GoKickMe
                 </Navbar.Brand>}
                 { rightButtons() }
