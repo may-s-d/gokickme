@@ -220,6 +220,37 @@ mockAws.onGet('/adminProjects')
       }
      });
 
+mockAws.onGet('/viewProject')
+.reply(200, {
+  body: {
+    project: {
+      'projectName': 'projectName',
+        'story': 'this is the story!',
+        'designer': 'egg',
+        'type': 'type',
+        'goalAmount': 1000.00,
+        'deadline': '2012-04-23T18:25:43.511Z',
+        'totalFunded': 500.00,
+        'pledges': [
+                        {
+                            'cost': 10.00,
+                            'description': '',
+                            'maxSupporters': 10,
+                            'supporters': []
+                        },
+                        {
+                            'cost': 25.00,
+                            'description': 'fun tier :)',
+                            'maxSupporters': 5,
+                            'supporters': []
+                        }
+                    ],
+        'launched': false,
+        'status': 0
+    }
+  }
+})
+
 mockAws.onPost('/designerProjects')
 .reply(200, { 
   body: {

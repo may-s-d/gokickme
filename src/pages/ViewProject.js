@@ -28,11 +28,13 @@ function ViewProject() {
     const renderProject = () => {
         return (
             <Container id={project.projectName}>
+                <h1>project.projectName</h1>
+                <h1>project.designerEmail</h1>
             </Container>
         )
     }
 
-    if (typeof projects === 'undefined') {
+    if (typeof project === 'undefined') {
         return (
             <>
             <Header loggedIn={ true } />
@@ -62,9 +64,5 @@ function ViewProject() {
         </>
     );
   }
-
-
-
-
 
 export default ViewProject
