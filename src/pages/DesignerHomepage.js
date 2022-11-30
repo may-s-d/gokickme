@@ -24,6 +24,8 @@ function DesignerHomepage() {
             return (
                 <Container key={index}>
                     { project.projectName }
+                    <Button>View</Button>
+                    <Button>Delete</Button>
                 </Container>
             )
         });
