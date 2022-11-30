@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
 
@@ -8,19 +8,16 @@ function AdminHomepage() {
     const getProjects = () => {
         aws.get('/adminProjects')
         .then(response => {
-            const p = response.data.body.projects;
-            updateProjects( { projects: p });
+            const projects = response.data.body.projects;
+            updateProjects( projects );
         })
     }
 
     const renderProjects = () => {
-        const renderedProjects = projects.projects.map((project, index) => {
+        const renderedProjects = projects.map((project, index) => {
             return (
                 <Container key={index}>
                     { project.projectName }
-                    <Button>Button1</Button> { /* these don't do anything. lol */ }
-                    <Button>Button2</Button>
-                    <Button>Button3</Button>
                 </Container>
             )
         });

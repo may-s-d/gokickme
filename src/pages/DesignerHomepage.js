@@ -1,49 +1,55 @@
+import { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
-import  { Link, Navigate, useLocation } from 'react-router-dom';
-
+import  { Link } from 'react-router-dom';
+import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
 
-function DesignerHomepage(props) { 
+function DesignerHomepage() {
+    const designer = JSON.parse(window.sessionStorage.getItem('designer'));
+    const [projects, updateProjects] = useState();
+    const getProjects = () => {
+        const body = {};
+        body['email'] = designer.email;
+        const data = { 'body': JSON.stringify(body) }
+        aws.post('/designerProjects', data)
+        .then(response => {
+            const p = response.data.body.projects;
+            updateProjects( { projects: p });
+        })
+    }
+    
     const renderProjects = () => {
-        const projects = loc.state.designer.projects;
-        console.log(projects);
+        const projects = designer.projects;
         const renderedProjects = projects.map((project, index) => {
             return (
                 <Container key={index}>
                     { project.projectName }
-                    <Button>Button1</Button> { /* these don't do anything. lol */ }
-                    <Button>Button2</Button>
-                    <Button>Button3</Button>
                 </Container>
             )
         });
-        return (
-            renderedProjects
-        )
+        return renderedProjects;
     }
 
-    const loc = useLocation();
-    console.log(loc);
-    if (loc.state === null || typeof loc.state.designer === 'undefined') {
+    if (typeof projects === 'undefined') {
         return (
             <>
-                <Navigate 
-                    to={'/login'}
-                    state={{ error: `Please login to view that page.` }}
-                />
+            <Header loggedIn={ true } />
+            <p>Loading projects...</p>
+            { getProjects() }
             </>
         )
     }
 
     else return (
         <>
-        <Header loggedIn={ true } designer={ loc.state.designer }/>
+        <Header loggedIn={ true } />
         <Button 
         as={ Link }
-        to='/createProject'
-        state={ { designer: loc.state.designer } }>Create new project</Button>
+        to='/createProject'>
+            Create new project
+        </Button>
         <Container>
-            logged in: { loc.state.designer.email }
+            logged in: { designer.email }
             { renderProjects() }
         </Container>
         </>

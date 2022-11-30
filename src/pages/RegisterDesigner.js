@@ -27,7 +27,7 @@ function RegisterDesigner(props) {
       aws.post('/registerDesigner', data)
       .then(response => {
         const designer = response.data.body.designer;
-        console.log(designer);
+        window.sessionStorage.setItem('designer', JSON.stringify(designer));
         updateState( { designer: designer });
       }).catch(error => {
         console.log(error);
