@@ -21,6 +21,7 @@ function ViewProject() {
         aws.get('/viewProject', data)
         .then(response => {
             const project = response.data.body.project;
+            console.log(project)
             updateProject(project);
         })
     }
@@ -28,10 +29,28 @@ function ViewProject() {
     const renderProject = () => {
         return (
             <Container id={project.projectName}>
-                <h1>project.projectName</h1>
-                <h1>project.designerEmail</h1>
+                <h1>Name: {project.projectName}</h1>
+                <h1>Designer: {project.designer}</h1>
+                <h1>Story: {project.story}</h1>
+                <h1>Goal: {project.totalFunded} / {project.goalAmount}</h1>
+                <h1>Deadline: {project.deadline}</h1>
             </Container>
         )
+    }
+
+    const renderPledges = () => {
+        const renderedPledges = project.pledges.map((pledge, index) => {
+            return (
+                <Container key={index}>
+                    <h2>Pledge {index + 1}</h2>
+                    <p>Cost: {pledge.cost}</p>
+                    <p>Description: {pledge.description}</p>
+                    <p>Max Supporters: {pledge.maxSupporters}</p>
+                    <Button>Claim Pledge</Button>
+                </Container>
+            )
+        })
+        return renderedPledges
     }
 
     if (typeof project === 'undefined') {
@@ -51,6 +70,10 @@ function ViewProject() {
             logged in: { designerEmail }
             { renderProject() }
         </Container>
+        <Container>
+            {renderPledges()}
+        </Container>
+        <Button>Add Pledge</Button>
         </>
     );
   }
