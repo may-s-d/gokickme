@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import  { Link } from 'react-router-dom';
 import { aws } from '../AWS.js';
+import  { Navigate } from 'react-router-dom';
 import Header from '../components/Header.js'
 
 function DesignerHomepage() {
     const [projects, updateProjects] = useState();
+    const [project, updateProject] = useState();
     const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
     
     const getProjects = () => {
@@ -21,7 +23,9 @@ function DesignerHomepage() {
 
     
     const  attemptProjectView = (e) => {
-        console.log(e.currentTarget.parentNode.id)
+        const projectName = e.currentTarget.parentNode.id
+        window.sessionStorage.setItem("projectName", projectName)
+        updateProject(projectName)
     }
 
     const attemptDeleteProject = (e) => {
@@ -47,6 +51,16 @@ function DesignerHomepage() {
             <Header loggedIn={ true } />
             <p>Loading projects...</p>
             { getProjects() }
+            </>
+        )
+    }
+
+    else if(!(typeof project === 'undefined')) {
+        return (
+            <>
+                <Navigate 
+                    to={'/viewProject'}
+                />
             </>
         )
     }
