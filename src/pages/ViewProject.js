@@ -44,16 +44,6 @@ function ViewProject() {
         )
     }
 
-    else if(!(typeof project === 'undefined')) {
-        return (
-            <>
-                <Navigate 
-                    to={'/viewProject'}
-                />
-            </>
-        )
-    }
-
     else return (
         <>
         <Header loggedIn={ true } />
