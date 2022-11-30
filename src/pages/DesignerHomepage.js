@@ -18,14 +18,23 @@ function DesignerHomepage() {
             updateProjects(projects);
         })
     }
+
     
+    const  attemptProjectView = (e) => {
+        console.log(e.currentTarget.id)
+    }
+
+    const attemptDeleteProject = (e) => {
+        console.log(e.currentTarget.id)
+    }
+
     const renderProjects = () => {
         const renderedProjects = projects.map((project, index) => {
             return (
                 <Container key={index}>
                     { project.projectName }
-                    <Button>View</Button>
-                    <Button>Delete</Button>
+                    <Button id={project.projectName} onClick={attemptProjectView}>View</Button>
+                    <Button id={project.projectName} onClick={attemptDeleteProject}>Delete</Button>
                 </Container>
             )
         });
