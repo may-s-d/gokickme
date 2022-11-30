@@ -1,7 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
 function AdminPage(props) {
-    const adminEmail = window.sessionStorage.getItem('adminEmail');
+    const adminEmail = 'hardcoding this to work';
+    window.sessionStorage.setItem('adminEmail', adminEmail);
+    // const adminEmail = window.sessionStorage.getItem('adminEmail');
     if (adminEmail === null) {
         return (
             <Navigate 

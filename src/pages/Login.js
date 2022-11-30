@@ -21,9 +21,11 @@ function Login() {
       const body = {};
       body['email'] = email;
       const data = { 'body': JSON.stringify(body) }
+      console.log(data);
 
       aws.post('/login', data)
       .then(response => {
+        console.log(response);
         if (typeof response.data.body.designer !== 'undefined') {
           const designer = response.data.body.designer;
           window.sessionStorage.setItem('designerEmail', JSON.stringify(designer.email));

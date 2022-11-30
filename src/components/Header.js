@@ -9,6 +9,7 @@ export default function Header(props) {
                 <Nav className="justify-content-end">
                     <NavLink href='/registerDesigner'>Register designer</NavLink>
                     <NavLink href='/login'>Login</NavLink>
+                    <NavLink href='/adminHomepage'>Admin view</NavLink>
                 </Nav>
             );
         }

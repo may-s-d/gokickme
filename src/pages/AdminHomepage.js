@@ -34,7 +34,7 @@ function AdminHomepage() {
     }
     else return (
         <>
-            <Header showAccountButtons={ false } loggedIn={ true } />
+            <Header showAccountButtons={ true } loggedIn={ true } />
             { renderProjects() }
         </>
     );
