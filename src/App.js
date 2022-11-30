@@ -7,7 +7,7 @@ import CreateProject from './pages/CreateProject.js';
 import AdminHomepage from './pages/AdminHomepage.js';
 import SupporterHomepage from './pages/SupporterHomepage.js';
 import Logout from './pages/Logout.js'
-
+import CreatePledge from './pages/CreatePledge.js'
 
 function App() {
   let designer = window.sessionStorage.getItem('designer');
@@ -78,6 +78,7 @@ function App() {
           <Route path='/adminHomepage' element={ adminPage(<AdminHomepage />) } />
           <Route path='/supporterHomepage' element= { supporterPage(<SupporterHomepage />) } />
           <Route path='/logout' element={ <Logout /> } />
+          <Route path='/createPledge' element={ designerPage(<CreatePledge />) } />
         </Routes>
       </BrowserRouter>
     </>

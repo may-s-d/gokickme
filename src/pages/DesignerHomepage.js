@@ -33,8 +33,8 @@ function DesignerHomepage() {
             return (
                 <Container id={project.projectName} key={index}>
                     { project.projectName }
-                    <Button id={project.projectName} onClick={attemptProjectView}>View</Button>
-                    <Button id={project.projectName} onClick={attemptDeleteProject}>Delete</Button>
+                    <Button onClick={attemptProjectView}>View</Button>
+                    <Button onClick={attemptDeleteProject}>Delete</Button>
                 </Container>
             )
         });
