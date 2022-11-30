@@ -21,17 +21,17 @@ function DesignerHomepage() {
 
     
     const  attemptProjectView = (e) => {
-        console.log(e.currentTarget.id)
+        console.log(e.currentTarget.parentNode.id)
     }
 
     const attemptDeleteProject = (e) => {
-        console.log(e.currentTarget.id)
+        console.log(e.currentTarget.parentNode.id)
     }
 
     const renderProjects = () => {
         const renderedProjects = projects.map((project, index) => {
             return (
-                <Container key={index}>
+                <Container id={project.projectName} key={index}>
                     { project.projectName }
                     <Button id={project.projectName} onClick={attemptProjectView}>View</Button>
                     <Button id={project.projectName} onClick={attemptDeleteProject}>Delete</Button>
