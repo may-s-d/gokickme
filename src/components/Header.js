@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Header(props) {
     const homepage = () => {
-        let designer = window.sessionStorage.getItem('designer');
-        let supporter = window.sessionStorage.getItem('supporter');
-        let admin = window.sessionStorage.getItem('admin');
-        if (designer !== null) {
+        const designerEmail = window.sessionStorage.getItem('designerEmail');
+        const supporterEmail = window.sessionStorage.getItem('supporterEmail');
+        const adminEmail = window.sessionStorage.getItem('adminEmail');
+        if (designerEmail !== null) {
             return (
                 <>
                 <Navigate
@@ -15,7 +15,7 @@ export default function Header(props) {
                 </>
             )
         }
-        else if (supporter !== null) {
+        else if (supporterEmail !== null) {
             return (
                 <>
                 <Navigate
@@ -24,7 +24,7 @@ export default function Header(props) {
             )
         }
 
-        else if (admin !== null) {
+        else if (adminEmail !== null) {
             return (
                 <>
                 <Navigate
@@ -33,12 +33,15 @@ export default function Header(props) {
             )
         }
 
-        else return (
-            <>
-            <Navigate
-            to={'/'} />
-            </>
-        )
+        else {
+            console.log('hi')
+            return (
+                <>
+                <Navigate
+                to={'/'} />
+                </>
+            )
+        }
     }
     const rightButtons = () => {
         if (props.showAccountButtons !== false && props.loggedIn === false) {

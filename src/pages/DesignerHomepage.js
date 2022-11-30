@@ -6,11 +6,11 @@ import Header from '../components/Header.js'
 
 function DesignerHomepage() {
     const [projects, updateProjects] = useState();
-    const designer = JSON.parse(window.sessionStorage.getItem('designer'));
+    const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
     
     const getProjects = () => {
         const body = {};
-        body['email'] = designer.email;
+        body['designerEmail'] = designerEmail;
         const data = { 'body': JSON.stringify(body) }
         aws.post('/designerProjects', data)
         .then(response => {
@@ -51,7 +51,7 @@ function DesignerHomepage() {
             Create new project
         </Button>
         <Container>
-            logged in: { designer.email }
+            logged in: { designerEmail }
             { renderProjects() }
         </Container>
         </>

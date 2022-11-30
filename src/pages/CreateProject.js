@@ -7,7 +7,7 @@ import Header from '../components/Header.js'
 
 function CreateProject() {
   const [projects, updateProjects] = useState();
-  const designer = JSON.parse(window.sessionStorage.getItem('designer'));
+  const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
 
   const attemptCreate = () => {
     const name = document.getElementById('name').value;
@@ -44,7 +44,7 @@ function CreateProject() {
       body['type'] = type;
       body['amount'] = amount;
       body['deadline'] = deadline;
-      body['designer'] = designer.name;
+      body['designerEmail'] = designerEmail;
       const data = { 'body': JSON.stringify(body) }
       aws.post('/createProject', data)
       .then(response => {
@@ -59,8 +59,8 @@ function CreateProject() {
     }
   }
 
-    if (typeof projects === 'undefined') { // has not created a project yet
-        return (
+  if (typeof projects === 'undefined') { // has not created a project yet
+      return (
           <>
           <Header loggedIn={ true } />
           <h1>Create project</h1>
@@ -99,14 +99,14 @@ function CreateProject() {
           <p id='message'>&nbsp;</p>
           </>
       )
-    }
-    
-    else return (
-        <>
-        <Navigate 
-            to={'/designerHomepage'} />
-        </>
-    )
   }
+
+  else return (
+      <>
+      <Navigate 
+          to={'/designerHomepage'} />
+      </>
+  )
+}
   
-  export default CreateProject;
+export default CreateProject;

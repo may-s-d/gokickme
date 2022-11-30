@@ -26,9 +26,9 @@ function RegisterDesigner(props) {
       const data = { 'body': JSON.stringify(body) }
       aws.post('/registerDesigner', data)
       .then(response => {
-        const designer = response.data.body.designer;
-        window.sessionStorage.setItem('designer', JSON.stringify(designer));
-        updateState( { designer: designer });
+        const designerEmail = response.data.body.designer.email;
+        window.sessionStorage.setItem('designerEmail', JSON.stringify(designerEmail));
+        updateState(designerEmail);
       }).catch(error => {
         console.log(error);
         document.getElementById('message').innerHTML = email + ` is already in use.`
@@ -65,7 +65,6 @@ function RegisterDesigner(props) {
     <>
         <Navigate 
             to={'/designerHomepage'}
-            state={{ designer: state.designer }}
         />
     </>
   )

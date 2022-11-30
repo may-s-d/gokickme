@@ -7,9 +7,9 @@ import Header from '../components/Header.js'
 
 function Login() {
   const [state, updateState] = useState(0);
-  const designer = window.sessionStorage.getItem('designer');
-  const supporter = window.sessionStorage.getItem('supporter');
-  const admin = window.sessionStorage.getItem('admin');
+  const designerEmail = window.sessionStorage.getItem('designerEmail');
+  const supporterEmail = window.sessionStorage.getItem('supporterEmail');
+  const adminEmail = window.sessionStorage.getItem('adminEmail');
 
   const attemptLogin = () => {
     const email = document.getElementById('email').value;
@@ -26,7 +26,7 @@ function Login() {
       .then(response => {
         if (typeof response.data.body.designer !== 'undefined') {
           const designer = response.data.body.designer;
-          window.sessionStorage.setItem('designer', JSON.stringify(designer));
+          window.sessionStorage.setItem('designerEmail', JSON.stringify(designer.email));
           updateState(state => state += 1);
         }
         else if (typeof response.data.body.supporter !== 'undefined') {
@@ -47,7 +47,7 @@ function Login() {
     msg = loc.state.error;
   }
 
-  if (designer !== null || supporter !== null || admin !== null) { // user already logged in. App.js handles which homepage to redirect to
+  if (designerEmail !== null || supporterEmail !== null || adminEmail !== null) { // user already logged in. App.js handles which homepage to redirect to
     console.log('already logged in');
     return (
       <>

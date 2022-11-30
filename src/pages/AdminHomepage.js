@@ -9,7 +9,7 @@ function AdminHomepage() {
         aws.get('/adminProjects')
         .then(response => {
             const projects = response.data.body.projects;
-            updateProjects( projects );
+            updateProjects(projects);
         })
     }
 
