@@ -8,7 +8,8 @@ import Header from '../components/Header.js'
 function CreatePledge() {
   const [project, updateProject] = useState();
   const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
-  const projectName = JSON.parse(window.sessionStorage.getItem('projectName'));
+  const projectName = 'yippee' // delete this and uncomment below when viewProject puts projname in session storage
+//   const projectName = JSON.parse(window.sessionStorage.getItem('projectName'));
 
   if (projectName === null) {
     console.log(`project doesn't exist`);

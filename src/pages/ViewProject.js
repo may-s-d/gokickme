@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
-import  { Link } from 'react-router-dom';
+import  { Navigate } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
 
-const projectName = window.sessionStorage.getItem("projectName")
-const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
 
-const [project, updateProject] = useState();
 
 function ViewProject() {
+    const projectName = window.sessionStorage.getItem("projectName")
+    const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
+
+    const [project, updateProject] = useState();
     console.log(projectName)
 
     const getProject = () => {
@@ -26,10 +27,7 @@ function ViewProject() {
 
     const renderProject = () => {
         return (
-            <Container id={project.projectName} key={index}>
-                { project.projectName }
-                <Button onClick={attemptProjectView}>View</Button>
-                <Button onClick={attemptDeleteProject}>Delete</Button>
+            <Container id={project.projectName}>
             </Container>
         )
     }

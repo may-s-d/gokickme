@@ -3,46 +3,6 @@ import { Navigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Header(props) {
-    const homepage = () => {
-        const designerEmail = window.sessionStorage.getItem('designerEmail');
-        const supporterEmail = window.sessionStorage.getItem('supporterEmail');
-        const adminEmail = window.sessionStorage.getItem('adminEmail');
-        if (designerEmail !== null) {
-            return (
-                <>
-                <Navigate
-                to={'/designerHomepage'} />
-                </>
-            )
-        }
-        else if (supporterEmail !== null) {
-            return (
-                <>
-                <Navigate
-                to={'/supporterHomepage'} />
-                </>
-            )
-        }
-
-        else if (adminEmail !== null) {
-            return (
-                <>
-                <Navigate
-                to={'/adminHomepage'} />
-                </>
-            )
-        }
-
-        else {
-            console.log('hi')
-            return (
-                <>
-                <Navigate
-                to={'/'} />
-                </>
-            )
-        }
-    }
     const rightButtons = () => {
         if (props.showAccountButtons !== false && props.loggedIn === false) {
             return (
@@ -67,7 +27,7 @@ export default function Header(props) {
             <Container>
                 { <Navbar.Brand 
                 as={ Link }
-                to={ homepage }>
+                to={'/'}>
                     GoKickMe
                 </Navbar.Brand>}
                 { rightButtons() }
