@@ -1,9 +1,9 @@
 import { Container, Nav, Navbar, NavLink } from 'react-bootstrap';
-import { Navigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Header(props) {
-    const rightButtons = () => {
+    const rightButtons = () => { // buttons on right side of screen
         if (props.showAccountButtons !== false && props.loggedIn === false) {
             return (
                 <Nav className="justify-content-end">

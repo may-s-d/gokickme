@@ -9,7 +9,7 @@ function AdminHomepage() {
         aws.get('/adminProjects')
         .then(response => {
             const projects = response.data.body.projects;
-            updateProjects(projects);
+            updateProjects(projects); // forces page refresh
         })
     }
 
@@ -23,7 +23,7 @@ function AdminHomepage() {
         });
         return renderedProjects;
     }
-    if (typeof projects === 'undefined') {
+    if (typeof projects === 'undefined') { // shows this until projects fetched
         return (
             <>
                 <Header showAccountButtons={ false } loggedIn={ true } />

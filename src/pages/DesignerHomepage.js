@@ -20,16 +20,15 @@ function DesignerHomepage() {
             updateProjects(projects);
         })
     }
-
     
-    const  attemptProjectView = (e) => {
-        const projectName = e.currentTarget.parentNode.id
-        window.sessionStorage.setItem("projectName", projectName)
-        updateProject(projectName)
+    const attemptProjectView = (e) => {
+        const projectName = e.currentTarget.parentNode.id;
+        window.sessionStorage.setItem("projectName", projectName);
+        updateProject(projectName);
     }
 
     const attemptDeleteProject = (e) => {
-        console.log(e.currentTarget.parentNode.id)
+        console.log(e.currentTarget.parentNode.id); // to add
     }
 
     const renderProjects = () => {
@@ -45,7 +44,7 @@ function DesignerHomepage() {
         return renderedProjects;
     }
 
-    if (typeof projects === 'undefined') {
+    if (typeof projects === 'undefined') { // projects not fetched yet
         return (
             <>
             <Header loggedIn={ true } />
@@ -55,7 +54,8 @@ function DesignerHomepage() {
         )
     }
 
-    else if(!(typeof project === 'undefined')) {
+    else if (typeof project !== 'undefined') { /* added project to sessionStorage, 
+    continue to viewProject */
         return (
             <>
                 <Navigate 

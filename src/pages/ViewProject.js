@@ -4,10 +4,8 @@ import  { Navigate } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
 
-
-
 function ViewProject() {
-    const projectName = window.sessionStorage.getItem("projectName")
+    const projectName = window.sessionStorage.getItem("projectName");
     const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
 
     const [project, updateProject] = useState();

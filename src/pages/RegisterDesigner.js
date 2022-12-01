@@ -5,7 +5,7 @@ import { aws } from '../AWS.js';
 import Header from '../components/Header.js';
 
 
-function RegisterDesigner(props) {
+function RegisterDesigner() {
   const [state, updateState] = useState();
 
   const attemptRegister = () => {

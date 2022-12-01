@@ -1,6 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
 function AdminPage(props) {
+    /* eventually we will want to have an actual admin login, but for now
+    i'll just keep it as hardcoded to log you in as an 'admin' if you try to access
+    any admin pages */
     const adminEmail = 'hardcoding this to work';
     window.sessionStorage.setItem('adminEmail', adminEmail);
     // const adminEmail = window.sessionStorage.getItem('adminEmail');
