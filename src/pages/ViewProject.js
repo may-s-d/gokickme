@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
-import  { Navigate } from 'react-router-dom';
+import  { Link } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
 
@@ -64,6 +64,10 @@ function ViewProject() {
     else return (
         <>
         <Header loggedIn={ true } />
+        <Button 
+        as={ Link }
+        to='/designerHomepage'>
+            {"<-- Back to Project List"}</Button>
         <Container>
             logged in: { designerEmail }
             { renderProject() }
