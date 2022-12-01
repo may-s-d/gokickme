@@ -18,7 +18,7 @@ function ViewProject() {
         const data = { 'body': JSON.stringify(body) }
         aws.get('/viewProject', data)
         .then(response => {
-            const project = response.data.body.project;
+            const project = response.data.body;
             console.log(project)
             updateProject(project);
         })

@@ -8,7 +8,7 @@ function AdminHomepage() {
     const getProjects = () => {
         aws.get('/adminProjects')
         .then(response => {
-            const projects = response.data.body.projects;
+            const projects = response.data.body;
             updateProjects(projects); // forces page refresh
         })
     }

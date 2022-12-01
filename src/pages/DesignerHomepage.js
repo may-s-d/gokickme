@@ -16,7 +16,7 @@ function DesignerHomepage() {
         const data = { 'body': JSON.stringify(body) }
         aws.post('/designerProjects', data)
         .then(response => {
-            const projects = response.data.body.projects;
+            const projects = response.data.body;
             updateProjects(projects);
         })
     }

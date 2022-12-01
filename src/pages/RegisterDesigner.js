@@ -26,7 +26,7 @@ function RegisterDesigner() {
       const data = { 'body': JSON.stringify(body) }
       aws.post('/registerDesigner', data)
       .then(response => {
-        const designerEmail = response.data.body.designer.email;
+        const designerEmail = response.data.body.email;
         window.sessionStorage.setItem('designerEmail', JSON.stringify(designerEmail));
         updateState(designerEmail);
       }).catch(error => {

@@ -48,7 +48,7 @@ function CreateProject() {
       const data = { 'body': JSON.stringify(body) }
       aws.post('/createProject', data)
       .then(response => {
-        const projects = response.data.body.designer.projects;
+        const projects = response.data.body.projects;
         updateProjects(projects);
       }).catch(error => {
         console.log(error);
