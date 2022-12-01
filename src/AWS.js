@@ -78,6 +78,16 @@ body: {
 }
 });
 
+mockAws.onPost('/createPledge')
+.reply(200, {
+body: {
+    'cost': 10.00,
+    'description': '',
+    'maxSupporters': 10,
+    'supporters': []
+}
+})
+
 mockAws.onPost('/createProject')
 .reply(200, { 
 body: {

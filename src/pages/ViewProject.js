@@ -75,7 +75,11 @@ function ViewProject() {
         <Container>
             {renderPledges()}
         </Container>
-        <Button>Add Pledge</Button>
+        <Button 
+        as={ Link }
+        to='/createPledge'>
+            Create new pledge
+        </Button>
         </>
     );
   }

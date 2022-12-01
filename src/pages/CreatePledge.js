@@ -6,9 +6,9 @@ import Header from '../components/Header.js'
 
 
 function CreatePledge() {
-  const [project, updateProject] = useState();
+  const [pledge, updatePledge] = useState();
   const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
-  const projectName = JSON.parse(window.sessionStorage.getItem('projectName'));
+  const projectName = window.sessionStorage.getItem('projectName');
 
   if (projectName === null) {
     console.log(`project doesn't exist`);
@@ -38,8 +38,20 @@ function CreatePledge() {
     const data = { 'body': JSON.stringify(body) }
     aws.post('/createPledge', data)
     .then(response => {
-        const project = response.data.body.project;
-        updateProject(project);
+        //change this depending on how the actual aws.post responds.. currently mock adapter does:
+        /*
+            mockAws.onPost('/createPledge')
+            .reply(200, {
+            body: {
+                'cost': 10.00,
+                'description': '',
+                'maxSupporters': 10,
+                'supporters': []
+            }
+            })
+        */
+        const pledge = response.data.body;
+        updatePledge(pledge);
     })
     .catch(error => {
         console.log(error);
@@ -49,7 +61,7 @@ function CreatePledge() {
     )
   }
 
-  if (typeof project === 'undefined') { // has not created a pledge yet
+  if (typeof pledge === 'undefined') { // has not created a pledge yet
       return (
           <>
           <Header loggedIn={ true } />
