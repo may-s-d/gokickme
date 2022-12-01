@@ -6,7 +6,7 @@ import Header from '../components/Header.js'
 function AdminHomepage() {
     const [projects, updateProjects] = useState();
     const getProjects = () => {
-        aws.get('/adminProjects')
+        aws.post('/adminProjects')
         .then(response => {
             if (response.data.statusCode === 200) {
                 const projects = response.data.body;
