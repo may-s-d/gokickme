@@ -28,7 +28,7 @@ function RegisterDesigner() {
       .then(response => {
         if (response.data.statusCode === 200) {
           const designerEmail = response.data.body.email;
-          window.sessionStorage.setItem('designerEmail', JSON.stringify(designerEmail));
+          window.sessionStorage.setItem('designerEmail', designerEmail);
           updateState(designerEmail);
         }
         else {

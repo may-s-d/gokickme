@@ -7,7 +7,7 @@ import Header from '../components/Header.js'
 
 function CreatePledge() {
   const [pledge, updatePledge] = useState();
-  const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
+  const designerEmail = window.sessionStorage.getItem('designerEmail');
   const projectName = window.sessionStorage.getItem('projectName');
 
   if (projectName === null) {

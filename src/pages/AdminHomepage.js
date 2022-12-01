@@ -22,7 +22,7 @@ function AdminHomepage() {
         const renderedProjects = projects.map((project, index) => {
             return (
                 <Container key={index}>
-                    { project.projectName }
+                    { project.name }
                 </Container>
             )
         });
@@ -31,7 +31,7 @@ function AdminHomepage() {
     if (typeof projects === 'undefined') { // shows this until projects fetched
         return (
             <>
-                <Header showAccountButtons={ false } loggedIn={ true } />
+                <Header showAccountButtons={ true } loggedIn={ true } />
                 <p>Loading projects...</p>
                 { getProjects() }
             </>

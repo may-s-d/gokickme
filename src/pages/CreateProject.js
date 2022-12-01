@@ -7,7 +7,7 @@ import Header from '../components/Header.js'
 
 function CreateProject() {
   const [projects, updateProjects] = useState();
-  const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
+  const designerEmail = window.sessionStorage.getItem('designerEmail');
 
   const attemptCreate = () => {
     const name = document.getElementById('name').value;
@@ -49,7 +49,7 @@ function CreateProject() {
       console.log(data);
       aws.post('/createProject', data)
       .then(response => {
-        const projects = response.data.body.projects;
+        const projects = response.data.body;
         updateProjects(projects);
       }).catch(error => {
         console.log(error);

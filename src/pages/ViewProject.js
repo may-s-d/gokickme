@@ -6,7 +6,7 @@ import Header from '../components/Header.js'
 
 function ViewProject() {
     const projectName = window.sessionStorage.getItem("projectName");
-    const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
+    const designerEmail = window.sessionStorage.getItem('designerEmail');
 
     const [project, updateProject] = useState();
     console.log(projectName)
@@ -16,7 +16,8 @@ function ViewProject() {
         body['designerEmail'] = designerEmail;
         body['projectName'] = projectName;
         const data = { 'body': JSON.stringify(body) }
-        aws.get('/viewProject', data)
+        console.log(data);
+        aws.post('/viewProject', data)
         .then(response => {
             if (response.data.statusCode === 200) {
                 const project = response.data.body;
@@ -31,11 +32,11 @@ function ViewProject() {
 
     const renderProject = () => {
         return (
-            <Container id={project.projectName}>
-                <h1>Name: {project.projectName}</h1>
-                <h1>Designer: {project.designer}</h1>
+            <Container id={project.name}>
+                <h1>Name: {project.name}</h1>
+                <h1>Designer: {project.designer_email}</h1>
                 <h1>Story: {project.story}</h1>
-                <h1>Goal: {project.totalFunded} / {project.goalAmount}</h1>
+                <h1>Goal: {project.totalFunded} / {project.goal_amount}</h1>
                 <h1>Deadline: {project.deadline}</h1>
             </Container>
         )

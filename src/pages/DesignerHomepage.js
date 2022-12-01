@@ -39,8 +39,8 @@ function DesignerHomepage() {
     const renderProjects = () => {
         const renderedProjects = projects.map((project, index) => {
             return (
-                <Container id={project.projectName} key={index}>
-                    { project.projectName }
+                <Container id={project.name} key={index}>
+                    { project.name }
                     <Button onClick={attemptProjectView}>View</Button>
                     <Button onClick={attemptDeleteProject}>Delete</Button>
                 </Container>

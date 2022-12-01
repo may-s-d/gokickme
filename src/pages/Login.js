@@ -29,7 +29,7 @@ function Login() {
         if (response.data.statusCode === 200) {
           const designer = response.data.body;
           console.log(designer);
-          window.sessionStorage.setItem('designerEmail', JSON.stringify(designer.email));
+          window.sessionStorage.setItem('designerEmail', designer.email);
           updateState(state => state += 1);
         }
         else {

@@ -27,7 +27,7 @@ function Index() {
     else return (
         <>
         <Header loggedIn={ false }/>
-        <p>You made it to homepage</p>
+        <p>You made it to homepage v1.0.1</p>
         </>
     );
   }
