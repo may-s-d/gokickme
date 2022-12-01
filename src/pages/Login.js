@@ -26,10 +26,16 @@ function Login() {
       aws.post('/loginDesigner', data)
       .then(response => {
         console.log(response);
-        const designer = response.data.body;
-        console.log(designer);
-        window.sessionStorage.setItem('designerEmail', JSON.stringify(designer.email));
-        updateState(state => state += 1);
+        if (response.data.statusCode === 200) {
+          const designer = response.data.body;
+          console.log(designer);
+          window.sessionStorage.setItem('designerEmail', JSON.stringify(designer.email));
+          updateState(state => state += 1);
+        }
+        else {
+          document.getElementById('message').innerHTML = response.data.body;
+        }
+        
       }).catch(error => {
         console.log(error);
         document.getElementById('message').innerHTML = email + ` isn't a valid account.`;

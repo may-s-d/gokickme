@@ -8,7 +8,7 @@ import Header from '../components/Header.js'
 function DesignerHomepage() {
     const [projects, updateProjects] = useState();
     const [project, updateProject] = useState();
-    const designerEmail = JSON.parse(window.sessionStorage.getItem('designerEmail'));
+    const designerEmail = window.sessionStorage.getItem('designerEmail');
     
     const getProjects = () => {
         const body = {};
