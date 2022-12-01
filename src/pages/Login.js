@@ -23,17 +23,13 @@ function Login() {
       const data = { 'body': JSON.stringify(body) }
       console.log(data);
 
-      aws.post('/login', data)
+      aws.post('/loginDesigner', data)
       .then(response => {
         console.log(response);
-        if (typeof response.data.body.designer !== 'undefined') {
-          const designer = response.data.body.designer;
-          window.sessionStorage.setItem('designerEmail', JSON.stringify(designer.email));
-          updateState(state => state += 1);
-        }
-        else if (typeof response.data.body.supporter !== 'undefined') {
-          // do some stuff here similar to designer
-        }
+        const designer = response.data.body;
+        console.log(designer);
+        window.sessionStorage.setItem('designerEmail', JSON.stringify(designer.email));
+        updateState(state => state += 1);
       }).catch(error => {
         console.log(error);
         document.getElementById('message').innerHTML = email + ` isn't a valid account.`;
