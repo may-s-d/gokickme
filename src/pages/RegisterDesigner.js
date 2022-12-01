@@ -49,7 +49,7 @@ function RegisterDesigner() {
         <Header showAccountButtons={ false } loggedIn={ false }/>
         <h1>Register designer</h1>
         <Form.Group controlId='email'>
-            <Form.Label>Username</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control type='text' placeholder='Email' autoComplete='off' />
         </Form.Group>
         <Form.Group controlId='name'>
