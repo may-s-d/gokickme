@@ -16,8 +16,13 @@ function DesignerHomepage() {
         const data = { 'body': JSON.stringify(body) }
         aws.post('/designerProjects', data)
         .then(response => {
-            const projects = response.data.body;
-            updateProjects(projects);
+            if (response.data.statusCode === 200) {
+                const projects = response.data.body;
+                updateProjects(projects);
+            }
+            else {
+              console.log(response.data.body);
+            }
         })
     }
     

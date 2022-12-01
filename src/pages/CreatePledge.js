@@ -50,8 +50,13 @@ function CreatePledge() {
             }
             })
         */
-        const pledge = response.data.body;
-        updatePledge(pledge);
+        if (response.data.statusCode === 200) {
+            const pledge = response.data.body;
+            updatePledge(pledge);
+        }
+        else {
+            console.log(response.data.body);
+        }
     })
     .catch(error => {
         console.log(error);

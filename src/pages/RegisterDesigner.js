@@ -26,9 +26,14 @@ function RegisterDesigner() {
       const data = { 'body': JSON.stringify(body) }
       aws.post('/registerDesigner', data)
       .then(response => {
-        const designerEmail = response.data.body.email;
-        window.sessionStorage.setItem('designerEmail', JSON.stringify(designerEmail));
-        updateState(designerEmail);
+        if (response.data.statusCode === 200) {
+          const designerEmail = response.data.body.email;
+          window.sessionStorage.setItem('designerEmail', JSON.stringify(designerEmail));
+          updateState(designerEmail);
+        }
+        else {
+          console.log(response.data.body);
+        }
       }).catch(error => {
         console.log(error);
         document.getElementById('message').innerHTML = email + ` is already in use.`

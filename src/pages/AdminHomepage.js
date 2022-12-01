@@ -8,8 +8,13 @@ function AdminHomepage() {
     const getProjects = () => {
         aws.get('/adminProjects')
         .then(response => {
-            const projects = response.data.body;
-            updateProjects(projects); // forces page refresh
+            if (response.data.statusCode === 200) {
+                const projects = response.data.body;
+                updateProjects(projects); // forces page refresh
+            }
+            else {
+              console.log(response.data.body);
+            }
         })
     }
 

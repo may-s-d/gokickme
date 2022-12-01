@@ -46,6 +46,7 @@ function CreateProject() {
       body['deadline'] = deadline;
       body['designerEmail'] = designerEmail;
       const data = { 'body': JSON.stringify(body) }
+      console.log(data);
       aws.post('/createProject', data)
       .then(response => {
         const projects = response.data.body.projects;

@@ -18,9 +18,14 @@ function ViewProject() {
         const data = { 'body': JSON.stringify(body) }
         aws.get('/viewProject', data)
         .then(response => {
-            const project = response.data.body;
-            console.log(project)
-            updateProject(project);
+            if (response.data.statusCode === 200) {
+                const project = response.data.body;
+                console.log(project)
+                updateProject(project);
+            }
+            else {
+              console.log(response.data.body);
+            }
         })
     }
 
