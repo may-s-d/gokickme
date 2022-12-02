@@ -7,7 +7,7 @@ export default function Header(props) {
         if (props.showAccountButtons !== false && props.loggedIn === false) {
             return (
                 <Nav className="justify-content-end">
-                    <NavLink href='/registerDesigner'>Register designer</NavLink>
+                    <NavLink href='/register'>Register</NavLink>
                     <NavLink href='/login'>Login</NavLink>
                     <NavLink href='/adminHomepage'>Admin view</NavLink>
                 </Nav>

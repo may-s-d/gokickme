@@ -9,6 +9,7 @@
     "axios": "^1.2.0",
     "axios-mock-adapter": "^1.21.2",
     "bootstrap": "^5.2.3",
+    "jquery": "^3.6.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",

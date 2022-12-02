@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index.js';
 import Login from './pages/Login.js';
-import RegisterDesigner from './pages/RegisterDesigner.js';
+import Register from './pages/Register.js';
 import DesignerHomepage from './pages/DesignerHomepage.js';
 import CreateProject from './pages/CreateProject.js';
 import AdminHomepage from './pages/AdminHomepage.js';
@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={ <Index /> } />
           <Route path='/login' element={ <Login /> } />
-          <Route path='/registerDesigner' element={ <RegisterDesigner /> } />
+          <Route path='/register' element={ <Register /> } />
           <Route path='/designerHomepage' element={ <DesignerPage page=<DesignerHomepage /> /> } />
           <Route path='/createProject' element={ <DesignerPage page=<CreateProject /> /> } />
           <Route path='/adminHomepage' element={ <AdminPage page=<AdminHomepage /> /> } />
