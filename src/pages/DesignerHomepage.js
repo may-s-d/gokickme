@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Table } from 'react-bootstrap';
 import  { Link } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import  { Navigate } from 'react-router-dom';
@@ -27,26 +27,37 @@ function DesignerHomepage() {
     }
     
     const attemptProjectView = (e) => {
-        const projectName = e.currentTarget.parentNode.id;
+        const projectName = e.currentTarget.parentNode.parentNode.id;
         window.sessionStorage.setItem("projectName", projectName);
         updateProject(projectName);
     }
 
     const attemptDeleteProject = (e) => {
-        console.log(e.currentTarget.parentNode.id); // to add
+        console.log(e.currentTarget.parentNode.parentNode.id); // to add
     }
 
     const renderProjects = () => {
         const renderedProjects = projects.map((project, index) => {
             return (
-                <Container id={project.name} key={index}>
-                    { project.name }
-                    <Button onClick={attemptProjectView}>View</Button>
-                    <Button onClick={attemptDeleteProject}>Delete</Button>
-                </Container>
+                <tr id={project.name} key={index}>
+                    <td>{ project.name }</td>
+                    <td><Button onClick={attemptProjectView}>View</Button></td>
+                    <td><Button onClick={attemptDeleteProject}>Delete</Button></td>
+                </tr>
             )
         });
-        return renderedProjects;
+        return (
+            <Table>
+                <thead>
+                    <tr><th className='container-sm'>Project Name</th>
+                    <th></th>
+                    <th></th></tr>
+                </thead>
+                <tbody>
+                    { renderedProjects }
+                </tbody>
+            </Table>
+        )
     }
 
     if (typeof projects === 'undefined') { // projects not fetched yet
@@ -73,13 +84,14 @@ function DesignerHomepage() {
     else return (
         <>
         <Header loggedIn={ true } />
-        <Button 
-        as={ Link }
-        to='/createProject'>
-            Create new project
-        </Button>
+        
         <Container>
-            logged in: { designerEmail }
+            <p>logged in: { designerEmail }</p>
+            <Button 
+            as={ Link }
+            to='/createProject'>
+                Create new project
+            </Button>
             { renderProjects() }
         </Container>
         </>

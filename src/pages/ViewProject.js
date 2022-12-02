@@ -61,7 +61,7 @@ function ViewProject() {
         return (
             <>
             <Header loggedIn={ true } />
-            <p>Loading projects...</p>
+            <p>Loading project...</p>
             { getProject() }
             </>
         )
