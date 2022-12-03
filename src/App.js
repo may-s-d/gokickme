@@ -27,7 +27,7 @@ function App() {
           <Route path='/supporterHomepage' element= { <SupporterPage page=<SupporterHomepage /> /> } />
           <Route path='/logout' element={ <Logout /> } />
           <Route path='/createPledge' element={ <DesignerPage page=<CreatePledge /> /> } />
-          <Route path='/viewProject' element={ <DesignerPage page=<ViewProject /> /> } />
+          <Route path='/viewProject' element={ <ViewProject /> } />
         </Routes>
       </BrowserRouter>
     </>

@@ -102,7 +102,6 @@ function ViewProject() {
             {"← Back to Projects"}</Button>
             
         <Container>
-            <p>logged in: { designerEmail }</p>
             { renderProject() }
         </Container>
         <Container>

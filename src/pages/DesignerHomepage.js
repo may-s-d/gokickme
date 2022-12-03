@@ -93,7 +93,6 @@ function DesignerHomepage() {
         <Header loggedIn={ true } />
         
         <Container>
-            <p>logged in: { designerEmail }</p>
             <Button 
             as={ Link }
             to='/createProject'>

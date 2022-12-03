@@ -85,7 +85,6 @@ function SupporterHomepage() {
             <Header loggedIn={ true } />
             
             <Container>
-                <p>logged in: { supporterEmail }</p>
                 <p>Budget: </p>
                 { renderProjects() }
             </Container>
