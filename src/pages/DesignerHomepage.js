@@ -38,20 +38,27 @@ function DesignerHomepage() {
 
     const renderProjects = () => {
         const renderedProjects = projects.map((project, index) => {
+            const deleteButton = project.launched.data[0] === 0 ? <Button onClick={attemptDeleteProject} variant='danger'>Delete</Button> : <></>;
             return (
                 <tr id={project.name} key={index}>
                     <td>{ project.name }</td>
+                    <td>{ project.launched.data[0] === 0 ? 'false' : 'true' }</td>
+                    <td>{ project.status }</td>
                     <td><Button onClick={attemptProjectView}>View</Button></td>
-                    <td><Button onClick={attemptDeleteProject} variant='danger'>Delete</Button></td>
+                    <td>{ deleteButton }</td>
                 </tr>
             )
         });
         return (
             <Table>
                 <thead>
-                    <tr><th className='container-sm'>Project Name</th>
-                    <th></th>
-                    <th></th></tr>
+                    <tr>
+                        <th style={{width:'40%'}}>Project Name</th>
+                        <th style={{width:'20%'}}>Launched?</th>
+                        <th style={{width:'20%'}}>Status</th>
+                        <th style={{width:'10%'}}></th>
+                        <th style={{width:'10%'}}></th>
+                    </tr>
                 </thead>
                 <tbody>
                     { renderedProjects }
