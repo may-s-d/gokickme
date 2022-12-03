@@ -37,7 +37,6 @@ function SupporterHomepage() {
             return (
                 <tr id={project.name} key={index}>
                     <td>{ project.name }</td>
-                    <td>{ project.launched.data[0] === 0 ? 'false' : 'true' }</td>
                     <td>{ project.status }</td>
                     <td><Button onClick={attemptProjectView}>View</Button></td>
                 </tr>
