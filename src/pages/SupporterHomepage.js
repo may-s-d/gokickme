@@ -10,7 +10,7 @@ function SupporterHomepage() {
     const [project, updateProject] = useState()
 
     const getProjects = () => {
-        aws.post('/adminProjects')
+        aws.post('/adminProjects') //change this to something that excludes projects that failed :)!
         .then(response => {
             if (response.data.statusCode === 200) {
                 const projects = response.data.body
