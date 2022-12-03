@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Row, Form } from 'react-bootstrap';
 import  { Navigate } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js';
@@ -88,7 +88,7 @@ function Register() {
           <Form.Control type='text' placeholder='Name' autoComplete='off' />
       </Form.Group>
       <Form.Group controlId='user'>
-        <Form.Label>User</Form.Label>
+        <Row><Form.Label>User</Form.Label></Row>
         <Form.Check
           inline
           label='Designer'
@@ -106,7 +106,8 @@ function Register() {
           value='Supporter'
           id={`inline-radio-2`}
         />
-    </Form.Group>
+      </Form.Group>
+      
 
       <Button onClick={attemptRegister}>
           Register

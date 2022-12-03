@@ -42,7 +42,7 @@ function DesignerHomepage() {
                 <tr id={project.name} key={index}>
                     <td>{ project.name }</td>
                     <td><Button onClick={attemptProjectView}>View</Button></td>
-                    <td><Button onClick={attemptDeleteProject}>Delete</Button></td>
+                    <td><Button onClick={attemptDeleteProject} variant='danger'>Delete</Button></td>
                 </tr>
             )
         });

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Row } from 'react-bootstrap';
 import  { Navigate, useLocation } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import $ from 'jquery';
@@ -89,7 +89,7 @@ function Login() {
           <Form.Control type='text' placeholder='Email' autoComplete='off' />
       </Form.Group>
       <Form.Group controlId='user'>
-          <Form.Label>User</Form.Label>
+          <Row><Form.Label>User</Form.Label></Row>
           <Form.Check
             inline
             label='Designer'

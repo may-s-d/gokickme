@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Card, Container, Table } from 'react-bootstrap';
 import  { Link } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
@@ -9,7 +9,6 @@ function ViewProject() {
     const designerEmail = window.sessionStorage.getItem('designerEmail');
 
     const [project, updateProject] = useState();
-    console.log(projectName)
 
     const getProject = () => {
         const body = {};
@@ -33,28 +32,53 @@ function ViewProject() {
     const renderProject = () => {
         return (
             <Container id={project.name}>
-                <h1>Name: {project.name}</h1>
-                <h1>Designer: {project.designer_email}</h1>
-                <h1>Story: {project.story}</h1>
-                <h1>Goal: {project.totalFunded} / {project.goal_amount}</h1>
-                <h1>Deadline: {project.deadline}</h1>
+                <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+                    <Card style={{ width: '60%' }}>
+                            <Card.Body>
+                            <Card.Title>Project name: {project.name}</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">Designer: {project.designer_email}</Card.Subtitle>
+                            <Card.Text>Story: {project.story}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    <Card style={{ width: '40%' }}>
+                        <Card.Body>
+                            <Card.Text>${project.totalFunded} raised out of  ${project.goal_amount} goal</Card.Text>
+                            <Card.Text>Deadline: {project.deadline}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </div>
             </Container>
         )
     }
 
     const renderPledges = () => {
+        
         const renderedPledges = project.pledges.map((pledge, index) => {
             return (
-                <Container key={index}>
-                    <h2>Pledge {index + 1}</h2>
-                    <p>Cost: {pledge.cost}</p>
-                    <p>Description: {pledge.description}</p>
-                    <p>Max Supporters: {pledge.maxSupporters}</p>
-                    <Button>Claim Pledge</Button>
-                </Container>
+                <tr key={index}>
+                    {/* <h2>Pledge {index + 1}</h2> */}
+                    <td>${pledge.cost}</td>
+                    <td>{pledge.description}</td>
+                    <td>{pledge.maxSupporters}</td>
+                    <td><Button variant='danger'>Delete</Button></td>
+                </tr>
             )
         })
-        return renderedPledges
+        return (
+            <Table>
+                <thead>
+                    <tr>
+                        <th style={{width:'10%'}}>Cost</th>
+                        <th style={{width:'70%'}}>Description</th>
+                        <th style={{width:'10%'}}>Max Supporters</th>
+                        <th style={{width: '10%'}}></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { renderedPledges }
+                </tbody>
+            </Table>
+        )
     }
 
     if (typeof project === 'undefined') {
@@ -72,20 +96,27 @@ function ViewProject() {
         <Header loggedIn={ true } />
         <Button 
         as={ Link }
-        to='/designerHomepage'>
-            {"<-- Back to Project List"}</Button>
+        to='/designerHomepage'
+        size='sm'>
+            {"← Back to Projects"}</Button>
+            
         <Container>
-            logged in: { designerEmail }
+            <p>logged in: { designerEmail }</p>
             { renderProject() }
         </Container>
         <Container>
-            {renderPledges()}
+            <Button 
+            as={ Link }
+            to='/createPledge'>
+                Create new pledge
+            </Button>
+            <Card>
+                <Card.Body>
+                    {renderPledges()}
+                </Card.Body>
+            </Card>
         </Container>
-        <Button 
-        as={ Link }
-        to='/createPledge'>
-            Create new pledge
-        </Button>
+        
         </>
     );
   }
