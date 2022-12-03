@@ -5,8 +5,9 @@ import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
 
 function ViewProject() {
-    const projectName = window.sessionStorage.getItem("projectName");
+    const projectName = window.sessionStorage.getItem('projectName');
     const designerEmail = window.sessionStorage.getItem('designerEmail');
+    const supporterEmail = window.sessionStorage.getItem('supporterEmail')
 
     const [project, updateProject] = useState();
 
