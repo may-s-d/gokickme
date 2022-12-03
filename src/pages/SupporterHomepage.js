@@ -46,9 +46,8 @@ function SupporterHomepage() {
             <Table>
                 <thead>
                     <tr>
-                        <th style={{width:'40%'}}>Project Name</th>
+                        <th style={{width:'70%'}}>Project Name</th>
                         <th style={{width:'20%'}}>Status</th>
-                        <th style={{width:'10%'}}></th>
                         <th style={{width:'10%'}}></th>
                     </tr>
                 </thead>
