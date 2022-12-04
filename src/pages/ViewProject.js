@@ -7,9 +7,11 @@ import Header from '../components/Header.js'
 function ViewProject() {
     const projectName = window.sessionStorage.getItem('projectName');
     const designerEmail = window.sessionStorage.getItem('designerEmail');
+    
     const supporterEmail = window.sessionStorage.getItem('supporterEmail')
 
     const [project, updateProject] = useState();
+    let isLaunched = false;
 
     const getProject = () => {
         const body = {};
@@ -28,6 +30,22 @@ function ViewProject() {
               console.log(response.data.body);
             }
         })
+    }
+    const attemptLaunchProject = () => {
+        const body = {};
+        body['designerEmail'] = designerEmail;
+        body['projectName'] = projectName;
+        const data = { 'body': JSON.stringify(body) }
+        aws.post('/launchProject', data)
+        .then(response => {
+            if (response.data.statusCode === 200) {
+                getProject();
+            }
+            else {
+              console.log(response.data.body);
+            }
+        })
+        .catch(console.log);
     }
 
     const renderProject = () => {
@@ -53,7 +71,9 @@ function ViewProject() {
     }
 
     const renderPledges = () => {
-        
+        const deletePledgeButton = isLaunched ?
+        <Button variant='danger'>Delete</Button> :
+        <></>;
         const renderedPledges = project.pledges.map((pledge, index) => {
             return (
                 <tr key={index}>
@@ -61,7 +81,7 @@ function ViewProject() {
                     <td>${pledge.cost}</td>
                     <td>{pledge.description}</td>
                     <td>{pledge.maxSupporters}</td>
-                    <td><Button variant='danger'>Delete</Button></td>
+                    <td>{ deletePledgeButton }</td>
                 </tr>
             )
         })
@@ -92,31 +112,49 @@ function ViewProject() {
         )
     }
 
-    else return (
-        <>
-        <Header loggedIn={ true } />
+    isLaunched = project.launched.data[0] === 0;
+
+    const launchButton = isLaunched ? 
+        <Button onClick={attemptLaunchProject}>Launch</Button> : 
+        <></>;
+    const createPledgeButton = isLaunched ?
         <Button 
         as={ Link }
-        to='/designerHomepage'
-        size='sm'>
-            {"← Back to Projects"}</Button>
+        to='/createPledge'
+        variant='outline-success'
+        style={{justifySelf:'stretch'}}>
+            Create new pledge
+        </Button> :
+        <></>;
+
+    return (
+        <>
+        <Header loggedIn={ true } />
+        <Container>
+            <div>
+                <Button 
+                as={ Link }
+                to='/designerHomepage'
+                variant='outline-primary'>
+                    {"← Back to Projects"}
+                </Button>
+                { launchButton }
+            </div>
             
-        <Container>
+                
             { renderProject() }
+            <Container>
+                <Card>
+                    <Card.Header style={{display:'grid'}}>
+                        <h5 style={{justifySelf:'center'}}>Pledges</h5>
+                        { createPledgeButton }
+                    </Card.Header>
+                    <Card.Body>
+                        {renderPledges()}
+                    </Card.Body>
+                </Card>
+            </Container>
         </Container>
-        <Container>
-            <Button 
-            as={ Link }
-            to='/createPledge'>
-                Create new pledge
-            </Button>
-            <Card>
-                <Card.Body>
-                    {renderPledges()}
-                </Card.Body>
-            </Card>
-        </Container>
-        
         </>
     );
   }

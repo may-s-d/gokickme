@@ -33,7 +33,21 @@ function DesignerHomepage() {
     }
 
     const attemptDeleteProject = (e) => {
-        console.log(e.currentTarget.parentNode.parentNode.id); // to add
+        const projectName = e.currentTarget.parentNode.parentNode.id;
+        const body = {};
+        body['designerEmail'] = designerEmail;
+        body['projectName'] = projectName;
+        const data = { 'body': JSON.stringify(body) }
+        aws.post('/deleteProject', data)
+        .then(response => {
+            if (response.data.statusCode === 200) {
+                getProjects();
+            }
+            else {
+              console.log(response.data.body);
+            }
+        })
+        .catch(console.log);
     }
 
     const renderProjects = () => {
