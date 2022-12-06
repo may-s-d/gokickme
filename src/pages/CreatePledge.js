@@ -36,20 +36,9 @@ function CreatePledge() {
     body['designerEmail'] = designerEmail;
     body['projectName'] = projectName;
     const data = { 'body': JSON.stringify(body) }
+    console.log(data);
     aws.post('/createPledge', data)
     .then(response => {
-        //change this depending on how the actual aws.post responds.. currently mock adapter does:
-        /*
-            mockAws.onPost('/createPledge')
-            .reply(200, {
-            body: {
-                'cost': 10.00,
-                'description': '',
-                'maxSupporters': 10,
-                'supporters': []
-            }
-            })
-        */
         if (response.data.statusCode === 200) {
             const pledge = response.data.body;
             updatePledge(pledge);
@@ -70,7 +59,7 @@ function CreatePledge() {
       return (
           <>
           <Header loggedIn={ true } />
-          <h1>Create project</h1>
+          <h1>Create pledge</h1>
           <Form.Group controlId='cost'>
               <Form.Label>Pledge cost</Form.Label>
               <Form.Control type='number' placeholder='Pledge cost' autoComplete='off' />

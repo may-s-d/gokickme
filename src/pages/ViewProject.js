@@ -55,7 +55,7 @@ function ViewProject() {
                     <Card style={{ width: '60%' }}>
                             <Card.Body>
                             <Card.Title>Project name: {project.name}</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">Designer: {project.designer_email}</Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted">Designer: {project.designer_name}</Card.Subtitle>
                             <Card.Text>Story: {project.story}</Card.Text>
                             </Card.Body>
                         </Card>
