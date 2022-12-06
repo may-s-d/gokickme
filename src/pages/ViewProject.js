@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { Button, Card, Container, Table } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 import  { Link } from 'react-router-dom';
 import { aws } from '../AWS.js';
-import Header from '../components/Header.js'
+import Header from '../components/Header.js';
+import PledgesList from '../components/PledgeList.js';
 
 function ViewProject() {
     const projectName = window.sessionStorage.getItem('projectName');
     const designerEmail = window.sessionStorage.getItem('designerEmail');
-    
-    const supporterEmail = window.sessionStorage.getItem('supporterEmail')
 
     const [project, updateProject] = useState();
     let isLaunched = false;
@@ -70,38 +69,7 @@ function ViewProject() {
         )
     }
 
-    const renderPledges = () => {
-        const deletePledgeButton = isLaunched ?
-        <Button variant='danger'>Delete</Button> :
-        <></>;
-        const renderedPledges = project.pledges.map((pledge, index) => {
-            return (
-                <tr key={index}>
-                    {/* <h2>Pledge {index + 1}</h2> */}
-                    <td>${pledge.cost}</td>
-                    <td>{pledge.description}</td>
-                    <td>{pledge.maxSupporters}</td>
-                    <td>{ deletePledgeButton }</td>
-                </tr>
-            )
-        })
-        return (
-            <Table>
-                <thead>
-                    <tr>
-                        <th style={{width:'10%'}}>Cost</th>
-                        <th style={{width:'70%'}}>Description</th>
-                        <th style={{width:'10%'}}>Max Supporters</th>
-                        <th style={{width: '10%'}}></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    { renderedPledges }
-                </tbody>
-            </Table>
-        )
-    }
-
+    
     if (typeof project === 'undefined') {
         return (
             <>
@@ -112,12 +80,12 @@ function ViewProject() {
         )
     }
 
-    isLaunched = project.launched.data[0] === 0;
-
-    const launchButton = isLaunched ? 
+    
+    isLaunched = project.launched.data[0] !== 0;
+    const launchButton = !isLaunched ? 
         <Button onClick={attemptLaunchProject}>Launch</Button> : 
         <></>;
-    const createPledgeButton = isLaunched ?
+    const createPledgeButton = !isLaunched ?
         <Button 
         as={ Link }
         to='/createPledge'
@@ -150,7 +118,7 @@ function ViewProject() {
                         { createPledgeButton }
                     </Card.Header>
                     <Card.Body>
-                        {renderPledges()}
+                        <PledgesList project={project} />
                     </Card.Body>
                 </Card>
             </Container>
