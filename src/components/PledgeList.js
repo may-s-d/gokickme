@@ -58,6 +58,9 @@ export default function PledgesList(props) { // we assume that either a designer
     }
 
     const renderedPledges = () => {
+        if (pledges === -1) {
+            return <><p>No pledges</p></>;
+        }
         const supporterList = (supporters) => {
             return (designerEmail && isLaunched) ? 
                 <tr>
@@ -66,12 +69,13 @@ export default function PledgesList(props) { // we assume that either a designer
                 : <></>;
         }
         return pledges.map((pledge, index) => {
+            console.log(pledge);
             return (
                 <>
                 <tr key={index} id={pledge.id}>
                     <td>${pledge.cost}</td>
                     <td>{pledge.description}</td>
-                    <td>here is where i put the # of supporters</td>
+                    <td>{pledge.numSupporters}</td>
                     <td>{pledge.maxSupporters}</td>
                     <td>{ rightButton() }</td>
                 </tr>
@@ -92,18 +96,22 @@ export default function PledgesList(props) { // we assume that either a designer
             .then(response => {
                 if (response.data.statusCode === 200) {
                     const pledge = response.data.body;
-                    console.log(pledge);
                     pledges.push(pledge);
+                    updatePledges(pledges);
                 }
                 else {
                   console.log(response.data.body);
                 }
             });
         }
-        updatePledges(pledges);
+        if (project.pledges.length === 0) {
+            updatePledges(-1);
+        }
+        console.log(pledges);
     }
 
     if (typeof pledges === 'undefined') {
+        console.log('hi' + pledges);
         return (
             <>
             <p>Loading pledge info...</p>
