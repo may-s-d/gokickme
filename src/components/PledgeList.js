@@ -9,7 +9,7 @@ export default function PledgesList(props) { // we assume that either a designer
     const supporterEmail = window.sessionStorage.getItem('supporterEmail');
     const isLaunched = project.launched.data[0] !== 0;
 
-    const rightButton = () => {
+    const rightButton = (pledge) => {
         let rightButton = <></>;
         if (designerEmail && !isLaunched) {
             const attemptDelete = (e) => {
@@ -50,26 +50,26 @@ export default function PledgesList(props) { // we assume that either a designer
                 })
                 .catch(console.log);
             }
-            const disabled = true; // add this in
-            rightButton = <Button onClick={attemptClaim} disabled={disabled}>Claim</Button> /* todo: disable if maxsupporters reached */
+            const disabled = (pledge.maxSupporters !== 0) && pledge.numSupporters < pledge.maxSupporters;
+            rightButton = <Button onClick={attemptClaim} disabled={disabled}>Claim</Button>
         }
         
         return rightButton;
     }
 
     const renderedPledges = () => {
-        if (pledges === -1) {
-            return <><p>No pledges</p></>;
-        }
         const supporterList = (supporters) => {
-            return (designerEmail && isLaunched) ? 
-                <tr>
-                    <td>here is where i would put supporters</td>
-                </tr>
-                : <></>;
+            if (designerEmail && isLaunched) {
+                return supporters.map((supporter, index) => {
+                    return (
+                        <tr key={index}>
+                            {supporter.supporter_email}
+                        </tr>
+                    );
+                });
+            }
         }
         return pledges.map((pledge, index) => {
-            console.log(pledge);
             return (
                 <>
                 <tr key={index} id={pledge.id}>
@@ -77,46 +77,59 @@ export default function PledgesList(props) { // we assume that either a designer
                     <td>{pledge.description}</td>
                     <td>{pledge.numSupporters}</td>
                     <td>{pledge.maxSupporters}</td>
-                    <td>{ rightButton() }</td>
+                    <td>{ rightButton(pledge) }</td>
                 </tr>
-                { supporterList('hello') }
+                {supporterList(pledge.supporterEmails)} {/* there's a warning on this. ignore it */}
                 </>
             );
     })}
 
     const getPledges = () => {
         const pledges = [];
+        const promises = [];
         for (const pledge of project.pledges) {
             const body = {};
             body['projectName'] = project.name;
             body['id'] = pledge.id;
             const data = { 'body': JSON.stringify(body) }
-            console.log(data);
-            aws.post('/viewPledge', data)
-            .then(response => {
+            promises.push(aws.post('/viewPledge', data));
+        }
+        Promise.all(promises)
+        .then(responses => {
+            for (const response of responses) {
                 if (response.data.statusCode === 200) {
                     const pledge = response.data.body;
                     pledges.push(pledge);
-                    updatePledges(pledges);
                 }
                 else {
-                  console.log(response.data.body);
+                    console.log(response.data.body);
                 }
-            });
-        }
-        if (project.pledges.length === 0) {
-            updatePledges(-1);
-        }
-        console.log(pledges);
+            }
+            if (pledges.length === 0) {
+                updatePledges(-1);
+            }
+            else { updatePledges(pledges); }
+        })
     }
 
     if (typeof pledges === 'undefined') {
-        console.log('hi' + pledges);
         return (
             <>
             <p>Loading pledge info...</p>
             { getPledges() }
             </>
+        )
+    }
+
+    else if (pledges === -1) {
+        return (
+            <Table>
+                <tbody>
+                    <tr>
+                        <th>No pledges found for this project</th>
+                    </tr>
+                </tbody>
+            </Table>
         )
     }
 
