@@ -8,13 +8,19 @@ import PledgesList from '../components/PledgeList.js';
 function ViewProject() {
     const projectName = window.sessionStorage.getItem('projectName');
     const designerEmail = window.sessionStorage.getItem('designerEmail');
+    const supporterEmail = window.sessionStorage.getItem('supporterEmail');
 
     const [project, updateProject] = useState();
     let isLaunched = false;
 
     const getProject = () => {
         const body = {};
-        body['designerEmail'] = designerEmail;
+        if (designerEmail) {
+            body['designerEmail'] = designerEmail;
+        }
+        else if (supporterEmail) {
+            body['supporterEmail'] = supporterEmail;
+        }
         body['projectName'] = projectName;
         const data = { 'body': JSON.stringify(body) }
         console.log(data);
@@ -22,7 +28,7 @@ function ViewProject() {
         .then(response => {
             if (response.data.statusCode === 200) {
                 const project = response.data.body;
-                console.log(project)
+                console.log(project);
                 updateProject(project);
             }
             else {
@@ -55,6 +61,7 @@ function ViewProject() {
                             <Card.Body>
                             <Card.Title>Project name: {project.name}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">Designer: {project.designer_name}</Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted">Type: {project.type}</Card.Subtitle>
                             <Card.Text>Story: {project.story}</Card.Text>
                             </Card.Body>
                         </Card>
@@ -102,7 +109,7 @@ function ViewProject() {
             <div>
                 <Button 
                 as={ Link }
-                to='/designerHomepage'
+                to='/'
                 variant='outline-primary'>
                     {"← Back to Projects"}
                 </Button>

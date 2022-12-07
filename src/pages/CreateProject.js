@@ -49,8 +49,13 @@ function CreateProject() {
       console.log(data);
       aws.post('/createProject', data)
       .then(response => {
-        const projects = response.data.body;
-        updateProjects(projects);
+        if (response.data.statusCode === 200) {
+            const projects = response.data.body;
+            updateProjects(projects);
+        }
+        else {
+          console.log(response.data.body);
+        }
       }).catch(error => {
         console.log(error);
         document.getElementById('message').innerHTML = name + ` is already in use.`;
