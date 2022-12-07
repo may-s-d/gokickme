@@ -26,7 +26,7 @@ function SupporterHomepage() {
     const getSupporter = () => {
         const body = {};
         body['supporterEmail'] = supporterEmail;
-        const data = { 'body': JSON.stringify(body) }
+        const data = { 'body': JSON.stringify(body) }   
         aws.post('/supporter', data)
         .then(response => {
             if (response.data.statusCode === 200) {
@@ -47,13 +47,14 @@ function SupporterHomepage() {
 
     const renderProjects = () => {
         const renderedProjects = projects.map((project, index) => {
-            if(project.launched.data[0] === 1) //thank you back end 
+            if(project.launched.data[0] === 1 && project.status !== 0) //thank you back end 
             {
                 return (
                     <tr id={project.name} key={index}>
                         <td>{ project.name }</td>
                         <td>{ project.status }</td>
                         <td>{ project.type }</td>
+                        <td>{ project.deadline }</td>
                         <td><Button onClick={attemptProjectView}>View</Button></td>
                     </tr>
                 )
@@ -64,8 +65,9 @@ function SupporterHomepage() {
                 <thead>
                     <tr>
                         <th style={{width:'50%'}}>Project Name</th>
-                        <th style={{width:'20%'}}>Status</th>
-                        <th style={{width:'20%'}}>Type</th>
+                        <th style={{width:'10%'}}>Status</th>
+                        <th style={{width:'10%'}}>Type</th>
+                        <th style = {{width: '20%'}}>Time Left</th>
                         <th style={{width:'10%'}}></th>
                     </tr>
                 </thead>
@@ -74,6 +76,38 @@ function SupporterHomepage() {
                 </tbody>
             </Table>
         )
+    }
+
+    const renderDonations = () => {
+        if(supporter.donations.length === 0)
+        {
+            return (
+                <>
+                    <p>User has no active donations</p>
+                </>
+            )
+        }
+    }
+
+    const renderActivePledges = () => {
+        if(supporter.pledges.length === 0)
+        {
+            return (
+                <>
+                    <p>User has no active pledges</p>
+                </>
+            )
+        }
+    }
+
+    if(typeof supporter === 'undefined') {
+       return (
+            <>
+            <Header />
+            <p>Loading Supporter Info...</p>
+            {getSupporter()}
+            </>
+       )
     }
 
     if (typeof projects === 'undefined') { // projects not fetched yet
@@ -102,9 +136,22 @@ function SupporterHomepage() {
             <Header loggedIn={ true } />
             
             <Container>
-                <p>Budget: </p>
+                <p>Budget: {supporter.budget}</p>
+            </Container>
+
+            <Container>
+                <h1>Direct Donations</h1>
+                { renderDonations() }
+            </Container>
+
+            <Container>
+                <h1>Pledges Claimed</h1>
+                { renderActivePledges() }
+            </Container>
+
+            <Container>
+                <h1>Sitewide Active Projects</h1>
                 { renderProjects() }
-                { getSupporter() }
             </Container>
             </>
         )
