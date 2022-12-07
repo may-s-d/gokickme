@@ -3,7 +3,6 @@ import { Button, Table } from 'react-bootstrap';
 import { aws } from '../AWS.js';
 
 export default function PledgesList(props) { // we assume that either a designer or a supporter is logged in if this is rendering
-    const [counter, updateCounter] = useState(0);
     const [pledges, updatePledges] = useState();
     const project = props.project;
     const designerEmail = window.sessionStorage.getItem('designerEmail');
@@ -22,7 +21,7 @@ export default function PledgesList(props) { // we assume that either a designer
                 aws.post('/deletePledge', data)
                 .then(response => {
                     if (response.data.statusCode === 200) {
-                        updateCounter(counter => counter+1);
+                        updatePledges(undefined);
                     }
                     else {
                     console.log(response.data.body);
@@ -43,7 +42,7 @@ export default function PledgesList(props) { // we assume that either a designer
                 aws.post('/claimPledge', data)
                 .then(response => {
                     if (response.data.statusCode === 200) {
-                        updateCounter(counter => counter+1);
+                        updatePledges(undefined);
                     }
                     else {
                         console.log(response.data.body);
@@ -56,25 +55,36 @@ export default function PledgesList(props) { // we assume that either a designer
         }
         
         return rightButton;
-    } 
-    
+    }
 
-    const renderedPledges = pledges.map((pledge, index) => {
-        return (
-            <tr key={index} id={pledge.id}>
-                <td>${pledge.cost}</td>
-                <td>{pledge.description}</td>
-                <td>here is where i put the # of supporters</td>
-                <td>{pledge.maxSupporters}</td>
-                <td>{ rightButton() }</td>
-            </tr>
-        )
-    })
+    const renderedPledges = () => {
+        const supporterList = (supporters) => {
+            return (designerEmail && isLaunched) ? 
+                <tr>
+                    <td>here is where i would put supporters</td>
+                </tr>
+                : <></>;
+        }
+        return pledges.map((pledge, index) => {
+            return (
+                <>
+                <tr key={index} id={pledge.id}>
+                    <td>${pledge.cost}</td>
+                    <td>{pledge.description}</td>
+                    <td>here is where i put the # of supporters</td>
+                    <td>{pledge.maxSupporters}</td>
+                    <td>{ rightButton() }</td>
+                </tr>
+                { supporterList('hello') }
+                </>
+            );
+    })}
 
     const getPledges = () => {
-        pledges = [];
-        project.pledges.map((pledge, index) => {
-            body['projectName'] = projectName;
+        const pledges = [];
+        for (const pledge of project.pledges) {
+            const body = {};
+            body['projectName'] = project.name;
             body['id'] = pledge.id;
             const data = { 'body': JSON.stringify(body) }
             console.log(data);
@@ -88,8 +98,8 @@ export default function PledgesList(props) { // we assume that either a designer
                 else {
                   console.log(response.data.body);
                 }
-            })
-        })
+            });
+        }
         updatePledges(pledges);
     }
 
@@ -115,9 +125,9 @@ export default function PledgesList(props) { // we assume that either a designer
                     </tr>
                 </thead>
                 <tbody>
-                    { renderedPledges }
+                    { renderedPledges() }
                 </tbody>
             </Table>
             )
-        }
+    }
 }

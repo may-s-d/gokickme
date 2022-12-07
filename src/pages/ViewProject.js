@@ -3,7 +3,7 @@ import { Button, Card, Container } from 'react-bootstrap';
 import  { Link } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js';
-import PledgesList from '../components/PledgeList.js';
+import PledgeList from '../components/PledgeList.js';
 
 function ViewProject() {
     const projectName = window.sessionStorage.getItem('projectName');
@@ -36,22 +36,6 @@ function ViewProject() {
             }
         })
     }
-    const attemptLaunchProject = () => {
-        const body = {};
-        body['designerEmail'] = designerEmail;
-        body['projectName'] = projectName;
-        const data = { 'body': JSON.stringify(body) }
-        aws.post('/launchProject', data)
-        .then(response => {
-            if (response.data.statusCode === 200) {
-                getProject();
-            }
-            else {
-              console.log(response.data.body);
-            }
-        })
-        .catch(console.log);
-    }
 
     const renderProject = () => {
         return (
@@ -75,7 +59,6 @@ function ViewProject() {
             </Container>
         )
     }
-
     
     if (typeof project === 'undefined') {
         return (
@@ -87,51 +70,71 @@ function ViewProject() {
         )
     }
 
-    
-    isLaunched = project.launched.data[0] !== 0;
-    const launchButton = !isLaunched ? 
-        <Button onClick={attemptLaunchProject}>Launch</Button> : 
-        <></>;
-    const createPledgeButton = !isLaunched ?
-        <Button 
-        as={ Link }
-        to='/createPledge'
-        variant='outline-success'
-        style={{justifySelf:'stretch'}}>
-            Create new pledge
-        </Button> :
-        <></>;
+    else {
+        isLaunched = project.launched.data[0] !== 0;
+        
+        const attemptLaunchProject = () => {
+            const body = {};
+            body['designerEmail'] = designerEmail;
+            body['projectName'] = projectName;
+            const data = { 'body': JSON.stringify(body) }
+            aws.post('/launchProject', data)
+            .then(response => {
+                if (response.data.statusCode === 200) {
+                    getProject();
+                }
+                else {
+                  console.log(response.data.body);
+                }
+            })
+            .catch(console.log);
+        }
 
-    return (
-        <>
-        <Header loggedIn={ true } />
-        <Container>
-            <div>
-                <Button 
-                as={ Link }
-                to='/'
-                variant='outline-primary'>
-                    {"← Back to Projects"}
-                </Button>
-                { launchButton }
-            </div>
-            
-                
-            { renderProject() }
+        const launchButton = !isLaunched ? 
+            <Button onClick={attemptLaunchProject}>Launch</Button> : 
+            <></>;
+        
+        const createPledgeButton = !isLaunched ?
+            <Button 
+            as={ Link }
+            to='/createPledge'
+            variant='outline-success'
+            style={{justifySelf:'stretch'}}>
+                Create new pledge
+            </Button> :
+            <></>;
+
+        return (
+            <>
+            <Header loggedIn={ true } />
             <Container>
-                <Card>
-                    <Card.Header style={{display:'grid'}}>
-                        <h5 style={{justifySelf:'center'}}>Pledges</h5>
-                        { createPledgeButton }
-                    </Card.Header>
-                    <Card.Body>
-                        <PledgesList project={project} />
-                    </Card.Body>
-                </Card>
+                <div>
+                    <Button 
+                    as={ Link }
+                    to='/'
+                    variant='outline-primary'>
+                        {"← Back to Projects"}
+                    </Button>
+                    { launchButton }
+                </div>
+                
+                    
+                { renderProject() }
+                <Container>
+                    <Card>
+                        <Card.Header style={{display:'grid'}}>
+                            <h5 style={{justifySelf:'center'}}>Pledges</h5>
+                            { createPledgeButton }
+                        </Card.Header>
+                        <Card.Body>
+                            <PledgeList project={project} />
+                        </Card.Body>
+                    </Card>
+                </Container>
             </Container>
-        </Container>
-        </>
-    );
+            </>
+        );
+    }
   }
 
 export default ViewProject
