@@ -45,7 +45,22 @@ function SupporterHomepage() {
         updateProject(projectName);
     }
 
+    function sortProjectByDate(a, b) {
+        if(a.deadline < b.deadline)
+            return -1
+        if(a.deadline > b.deadline)
+            return 1
+        return 0 
+    }
+
+    function calculateTimeLeft(deadline) {
+        let today = Date.parse(new Date())
+        let amongus = Date.parse(deadline)
+        return Math.floor((amongus - today) / 86400000)
+    }
+
     const renderProjects = () => {
+        projects.sort(sortProjectByDate)
         const renderedProjects = projects.map((project, index) => {
             if(project.launched.data[0] === 1 && project.status !== 0) //thank you back end 
             {
@@ -54,7 +69,7 @@ function SupporterHomepage() {
                         <td>{ project.name }</td>
                         <td>{ project.status }</td>
                         <td>{ project.type }</td>
-                        <td>{ project.deadline }</td>
+                        <td>{ calculateTimeLeft(project.deadline) }</td>
                         <td><Button onClick={attemptProjectView}>View</Button></td>
                     </tr>
                 )
@@ -67,7 +82,7 @@ function SupporterHomepage() {
                         <th style={{width:'50%'}}>Project Name</th>
                         <th style={{width:'10%'}}>Status</th>
                         <th style={{width:'10%'}}>Type</th>
-                        <th style = {{width: '20%'}}>Time Left</th>
+                        <th style = {{width: '20%'}}>Days Left</th>
                         <th style={{width:'10%'}}></th>
                     </tr>
                 </thead>
@@ -97,7 +112,36 @@ function SupporterHomepage() {
                     <p>User has no active pledges</p>
                 </>
             )
+        } 
+        else {
+            const renderedPledges = supporter.pledges.map((pledge, index) => {
+                console.log(pledge)
+                return (
+                    <tr id={pledge.project_name} key={index}>
+                        <td>{ pledge.project_name }</td>
+                        <td>{ pledge.pledge_id }</td>
+                        <td>{ pledge.date.substring(0, 10) }</td>
+                    </tr>
+                )
+            })
+
+            return (
+                <Table>
+                    <thead>
+                        <tr>
+                            <th style={{width:'20%'}}>Project Name</th>
+                            <th style={{width:'20%'}}>Pledge ID</th>
+                            <th style={{width:'20%'}}>Date Claimed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { renderedPledges }
+                    </tbody>
+                </Table>
+            )
         }
+
+
     }
 
     if(typeof supporter === 'undefined') {
