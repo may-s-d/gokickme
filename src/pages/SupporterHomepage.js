@@ -8,6 +8,7 @@ function SupporterHomepage() {
     const [projects, updateProjects] = useState()
     const supporterEmail = window.sessionStorage.getItem('supporterEmail')
     const [project, updateProject] = useState()
+    const [supporter, updateSupporter] = useState()
 
     const getProjects = () => {
         aws.post('/adminProjects') //change this to something that excludes projects that failed :)!
@@ -22,8 +23,20 @@ function SupporterHomepage() {
         })
     }
 
-    const getBudget = () => {
-
+    const getSupporter = () => {
+        const body = {};
+        body['supporterEmail'] = supporterEmail;
+        const data = { 'body': JSON.stringify(body) }
+        aws.post('/supporter', data)
+        .then(response => {
+            if (response.data.statusCode === 200) {
+                const supporter = response.data.body
+                updateSupporter(supporter)
+            }
+            else {
+                console.log(response.data.body)
+            }
+        })
     }
 
     const attemptProjectView = (e) => {
@@ -34,20 +47,25 @@ function SupporterHomepage() {
 
     const renderProjects = () => {
         const renderedProjects = projects.map((project, index) => {
-            return (
-                <tr id={project.name} key={index}>
-                    <td>{ project.name }</td>
-                    <td>{ project.status }</td>
-                    <td><Button onClick={attemptProjectView}>View</Button></td>
-                </tr>
-            )
+            if(project.launched.data[0] === 1) //thank you back end 
+            {
+                return (
+                    <tr id={project.name} key={index}>
+                        <td>{ project.name }</td>
+                        <td>{ project.status }</td>
+                        <td>{ project.type }</td>
+                        <td><Button onClick={attemptProjectView}>View</Button></td>
+                    </tr>
+                )
+            }
         })
         return (
             <Table>
                 <thead>
                     <tr>
-                        <th style={{width:'70%'}}>Project Name</th>
+                        <th style={{width:'50%'}}>Project Name</th>
                         <th style={{width:'20%'}}>Status</th>
+                        <th style={{width:'20%'}}>Type</th>
                         <th style={{width:'10%'}}></th>
                     </tr>
                 </thead>
@@ -86,6 +104,7 @@ function SupporterHomepage() {
             <Container>
                 <p>Budget: </p>
                 { renderProjects() }
+                { getSupporter() }
             </Container>
             </>
         )
