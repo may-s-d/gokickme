@@ -6,7 +6,7 @@ import Header from '../components/Header.js'
 
 function SupporterHomepage() {
     const [projects, updateProjects] = useState()
-    const [counter, updateCounter] = useState()
+    const [count, setCount] = useState(0);
     const supporterEmail = window.sessionStorage.getItem('supporterEmail')
     const [project, updateProject] = useState()
     const [supporter, updateSupporter] = useState()
@@ -88,8 +88,6 @@ function SupporterHomepage() {
     }
 
     const renderProjects = () => {
-
-        console.log('change')
         let filters = []
 
         let musicFilter = document.getElementById('music')
@@ -114,7 +112,7 @@ function SupporterHomepage() {
 
         projects.sort(sortProjectByDate)
         const renderedProjects = projects.map((project, index) => {
-            if(project.launched.data[0] === 1 && project.status !== 0 && filters.includes(project.type)) //thank you back end 
+            if(project.launched.data[0] === 1 && project.status !== 0 && (filters.includes(project.type) || filters.length === 0)) //thank you back end 
             {
                 return (
                     <tr id={project.name} key={index}>
@@ -256,9 +254,9 @@ function SupporterHomepage() {
             </Container>
 
             <Container>
-                <input type="checkbox" id="music" value="music" onChange={() => updateCounter(counter => counter+1)}/>Music
-                <input type="checkbox" id="film" value="film" onChange={() => updateCounter(counter => counter+2)} />Film
-                <input type="checkbox" id="game" value="game" onChange={() => updateCounter(counter => counter+3)}/>Game
+                <input type="checkbox" id="music" value="music" onChange={() => setCount(count + 1)}/>Music
+                <input type="checkbox" id="film" value="film" onChange={() => setCount(count + 1)} />Film
+                <input type="checkbox" id="game" value="game" onChange={() => setCount(count + 1)}/>Game
             </Container>
 
             <Container>
