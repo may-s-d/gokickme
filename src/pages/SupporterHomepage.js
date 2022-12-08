@@ -12,6 +12,10 @@ function SupporterHomepage() {
     const [supporter, updateSupporter] = useState()
     const [pledges, updatePledges] = useState()
 
+    const checkBoxStyle = {
+        margin: 1 + 'vw',
+    }
+
     const getProjects = () => {
         aws.post('/adminProjects') //change this to something that excludes projects that failed :)!
         .then(response => {
@@ -112,7 +116,7 @@ function SupporterHomepage() {
 
         projects.sort(sortProjectByDate)
         const renderedProjects = projects.map((project, index) => {
-            if(project.launched.data[0] === 1 && project.status !== 0 && (filters.includes(project.type) || filters.length === 0)) //thank you back end 
+            if(project.launched.data[0] === 1 && project.status !== 0 && (filters.includes(project.type) || filters.length === 0) && Date.parse(project.deadline) > Date.parse(new Date())) //thank you back end 
             {
                 return (
                     <tr id={project.name} key={index}>
@@ -254,9 +258,9 @@ function SupporterHomepage() {
             </Container>
 
             <Container>
-                <input type="checkbox" id="music" value="music" onChange={() => setCount(count + 1)}/>Music
-                <input type="checkbox" id="film" value="film" onChange={() => setCount(count + 1)} />Film
-                <input type="checkbox" id="game" value="game" onChange={() => setCount(count + 1)}/>Game
+                <input style = {checkBoxStyle} type="checkbox" id="music" value="music" onChange={() => setCount(count + 1)}/>Music
+                <input style = {checkBoxStyle} type="checkbox" id="film" value="film" onChange={() => setCount(count + 1)} />Film
+                <input style = {checkBoxStyle} type="checkbox" id="game" value="game" onChange={() => setCount(count + 1)}/>Game
             </Container>
 
             <Container>
