@@ -6,9 +6,11 @@ import Header from '../components/Header.js'
 
 function SupporterHomepage() {
     const [projects, updateProjects] = useState()
+    const [counter, updateCounter] = useState()
     const supporterEmail = window.sessionStorage.getItem('supporterEmail')
     const [project, updateProject] = useState()
     const [supporter, updateSupporter] = useState()
+    const [pledges, updatePledges] = useState()
 
     const getProjects = () => {
         aws.post('/adminProjects') //change this to something that excludes projects that failed :)!
@@ -22,6 +24,32 @@ function SupporterHomepage() {
             }
         })
     }
+    
+    const getPledges = () => {
+        const pledges = [];
+        const promises = [];
+        for (const pledge of supporter.pledges) {
+            const body = {};
+            body['projectName'] = pledge.project_name;
+            body['id'] = pledge.id;
+            const data = { 'body': JSON.stringify(body) }
+            promises.push(aws.post('/viewPledge', data));
+        }
+        Promise.all(promises)
+        .then(responses => {
+            for (const response of responses) {
+                if (response.data.statusCode === 200) {
+                    const pledge = response.data.body;
+                    pledges.push(pledge);
+                }
+                else {
+                    console.log(response.data.body);
+                }
+            }
+            updatePledges(pledges);
+        })
+    }
+    
 
     const getSupporter = () => {
         const body = {};
@@ -60,9 +88,33 @@ function SupporterHomepage() {
     }
 
     const renderProjects = () => {
+
+        console.log('change')
+        let filters = []
+
+        let musicFilter = document.getElementById('music')
+        let filmFilter = document.getElementById('film')
+        let gameFilter = document.getElementById('game')
+
+        if(musicFilter && musicFilter.checked)
+        {
+            filters.push("music")
+        }
+
+        if(filmFilter && filmFilter.checked) {
+            filters.push("film")
+        }
+
+        if(gameFilter && gameFilter.checked)
+        {
+            filters.push("game")
+        }
+
+        console.log(filters)
+
         projects.sort(sortProjectByDate)
         const renderedProjects = projects.map((project, index) => {
-            if(project.launched.data[0] === 1 && project.status !== 0) //thank you back end 
+            if(project.launched.data[0] === 1 && project.status !== 0 && filters.includes(project.type)) //thank you back end 
             {
                 return (
                     <tr id={project.name} key={index}>
@@ -164,6 +216,16 @@ function SupporterHomepage() {
         )
     }
 
+    if(typeof pledges === 'undefined') {
+        return (
+            <>
+            <Header />
+            <p>Loading Pledge Info...</p>
+            {getPledges()}
+            </>
+        )
+    }
+
     else if (typeof project !== 'undefined') { /* added project to sessionStorage, 
         continue to viewProject */
             return (
@@ -191,6 +253,12 @@ function SupporterHomepage() {
             <Container>
                 <h1>Pledges Claimed</h1>
                 { renderActivePledges() }
+            </Container>
+
+            <Container>
+                <input type="checkbox" id="music" value="music" onChange={() => updateCounter(counter => counter+1)}/>Music
+                <input type="checkbox" id="film" value="film" onChange={() => updateCounter(counter => counter+2)} />Film
+                <input type="checkbox" id="game" value="game" onChange={() => updateCounter(counter => counter+3)}/>Game
             </Container>
 
             <Container>
