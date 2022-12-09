@@ -103,6 +103,15 @@ function ViewProject() {
                 Create new pledge
             </Button> :
             <></>;
+        
+        const directDonationButton = supporterEmail ?
+            <Button 
+            as={ Link } 
+            to='/directDonation'>
+                Make a direct donation
+            </Button> :
+            <></>;
+            
 
         return (
             <>
@@ -116,6 +125,7 @@ function ViewProject() {
                         {"← Back to Projects"}
                     </Button>
                     { launchButton }
+                    { directDonationButton }
                 </div>
                 
                     

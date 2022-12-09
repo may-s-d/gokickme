@@ -11,7 +11,9 @@ import CreatePledge from './pages/CreatePledge.js';
 import DesignerPage from './pages/DesignerPage.js';
 import SupporterPage from './pages/SupporterPage.js';
 import AdminPage from './pages/AdminPage.js';
-import ViewProject from './pages/ViewProject.js'
+import ViewProject from './pages/ViewProject.js';
+import AddFunds from './pages/AddFunds.js';
+import DirectDonation from './pages/DirectDonation.js';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path='/logout' element={ <Logout /> } />
           <Route path='/createPledge' element={ <DesignerPage page=<CreatePledge /> /> } />
           <Route path='/viewProject' element={ <ViewProject /> } />
+          <Route path='/addFunds' element={ <SupporterPage page=<AddFunds /> /> } />
+          <Route path='/directDonation' element={ <SupporterPage page=<DirectDonation /> /> } />
         </Routes>
       </BrowserRouter>
     </>

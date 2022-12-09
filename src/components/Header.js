@@ -22,13 +22,16 @@ export default function Header(props) {
             );
         }
         else if (props.showAccountButtons !== false && props.loggedIn === true) {
+            const addFunds = (window.sessionStorage.getItem('supporterEmail')) ? 
+                <NavDropdown.Item href='/addFunds'>Add funds</NavDropdown.Item> :
+                <></>;
             return (
                 <Nav className='justify-content-end'>
-                    
                     <NavDropdown 
                     title={ 'Signed in as ' + getEmail() }
                     menuVariant='light'
                     align='end'>
+                        {addFunds}
                         <NavDropdown.Item href='/logout'>Logout</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
@@ -37,7 +40,7 @@ export default function Header(props) {
     }
 
     return (
-      <>
+        <>
         <Navbar bg='dark' variant='dark'>
             <Container>
                 { <Navbar.Brand 
@@ -48,6 +51,6 @@ export default function Header(props) {
                 { rightButtons() }
             </Container>
         </Navbar>
-      </>
+        </>
     );
   }
