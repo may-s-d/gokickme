@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js'
 
 function AdminHomepage() {
+    const adminEmail = window.sessionStorage.getItem('adminEmail');
     const [projects, updateProjects] = useState();
     const getProjects = () => {
         aws.post('/adminProjects')
@@ -37,12 +38,31 @@ function AdminHomepage() {
             </>
         )
     }
-    else return (
+    else {
+        const attemptReap = () => {
+            const body = {};
+            body['date'] = new Date();
+            body['adminEmail'] = adminEmail;
+            const data = { 'body': JSON.stringify(body) }
+            aws.post('/reapProject', data)
+            .then(response => {
+                if (response.data.statusCode === 200) {
+                    updateProjects(undefined); // force update
+                }
+                else {
+                console.log(response.data.body);
+                }
+            })
+        }
+        return (
         <>
             <Header showAccountButtons={ true } loggedIn={ true } />
+            <Container>
+            <Button variant='danger' onClick={attemptReap}>Reap projects</Button>
             { renderProjects() }
+            </Container>
         </>
-    );
+    )}
 }
 
 export default AdminHomepage;
