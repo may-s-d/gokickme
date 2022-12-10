@@ -104,7 +104,7 @@ function ViewProject() {
             </Button> :
             <></>;
         
-        const directDonationButton = supporterEmail ?
+        const directDonationButton = supporterEmail && (project.status === 'incomplete') ?
             <Button 
             as={ Link } 
             to='/directDonation'>
