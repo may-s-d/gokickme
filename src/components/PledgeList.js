@@ -32,7 +32,7 @@ export default function PledgesList(props) { // we assume that either a designer
             rightButton = <Button variant='danger' onClick={attemptDelete}>Delete</Button>;
         }
     
-        else if (supporterEmail && isLaunched) { // supporter view
+        else if (supporterEmail && isLaunched && (project.status === 'incomplete')) { // supporter view
             const attemptClaim = (e) => {
                 const body = {};
                 body['supporterEmail'] = supporterEmail;
@@ -50,7 +50,7 @@ export default function PledgesList(props) { // we assume that either a designer
                 })
                 .catch(console.log);
             }
-            const disabled = (pledge.maxSupporters !== 0) && pledge.numSupporters < pledge.maxSupporters;
+            const disabled = (pledge.maxSupporters !== 0) && pledge.numSupporters >= pledge.maxSupporters;
             rightButton = <Button onClick={attemptClaim} disabled={disabled}>Claim</Button>
         }
         
