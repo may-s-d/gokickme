@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { Container, Nav, NavDropdown, Navbar, NavLink } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { aws } from '../AWS.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Header(props) {
+    const [supporter, updateSupporter] = useState();
     const getEmail = () => {
         let email = window.sessionStorage.getItem('designerEmail');
         if (email) return email;
@@ -22,16 +25,45 @@ export default function Header(props) {
             );
         }
         else if (props.showAccountButtons !== false && props.loggedIn === true) {
-            const addFunds = (window.sessionStorage.getItem('supporterEmail')) ? 
-                <NavDropdown.Item href='/addFunds'>Add funds</NavDropdown.Item> :
-                <></>;
+            const supporterEmail = window.sessionStorage.getItem('supporterEmail');
+            if (supporter) {
+                const addFunds = <NavDropdown.Item href='/addFunds'>Add funds</NavDropdown.Item>;
+                const supporterFunds = <Nav.Item style={{color:'white'}}>Funds: ${supporter.budget}</Nav.Item>
+                return (
+                    <Nav className='justify-content-end'>
+                        {supporterFunds}
+                        <NavDropdown 
+                        title={ 'Signed in as ' + getEmail() }
+                        menuVariant='light'
+                        align='end'>
+                            {addFunds}
+                            <NavDropdown.Item href='/logout'>Logout</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                )
+            }
+            else if (supporterEmail) {
+                const body = {};
+                body['supporterEmail'] = supporterEmail;
+                const data = { 'body': JSON.stringify(body) }   
+                aws.post('/supporter', data)
+                .then(response => {
+                    if (response.data.statusCode === 200) {
+                        const supporter = response.data.body
+                        updateSupporter(supporter)
+                    }
+                    else {
+                        console.log(response.data.body)
+                    }
+                })
+            }
+
             return (
                 <Nav className='justify-content-end'>
                     <NavDropdown 
                     title={ 'Signed in as ' + getEmail() }
                     menuVariant='light'
                     align='end'>
-                        {addFunds}
                         <NavDropdown.Item href='/logout'>Logout</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
