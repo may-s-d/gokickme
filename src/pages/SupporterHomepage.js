@@ -11,6 +11,7 @@ function SupporterHomepage() {
     const [project, updateProject] = useState()
     const [supporter, updateSupporter] = useState()
     const [pledges, updatePledges] = useState()
+    const [donations, updateDonations] = useState()
 
     const checkBoxStyle = {
         margin: 1 + 'vw',
@@ -63,6 +64,11 @@ function SupporterHomepage() {
         .then(response => {
             if (response.data.statusCode === 200) {
                 const supporter = response.data.body
+                const donations = []
+                for(let donation of supporter.donations) {
+                    donations.push(donation)
+                }
+                updateDonations(donations)
                 updateSupporter(supporter)
             }
             else {
@@ -162,12 +168,38 @@ function SupporterHomepage() {
     }
 
     const renderDonations = () => {
-        if(supporter.donations.length === 0)
+        if(donations.length === 0)
         {
             return (
                 <>
                     <p>User has no active donations</p>
                 </>
+            )
+        }
+        else {
+            const renderedDonations = donations.map((donation, index) => {
+                console.log(donation)
+                return (
+                    <tr id={donation.project_name} key={index}>
+                        <td>{ donation.project_name }</td>
+                        <td>{ donation.cost }</td>
+                        <td>{ donation.date.substring(0, 10) }</td>
+                    </tr>
+                )
+            })
+            return (
+                <Table>
+                    <thead>
+                        <tr>
+                            <th style={{width:'20%'}}>Project Name</th>
+                            <th style={{width:'20%'}}>Project Cost</th>
+                            <th style={{width:'20%'}}>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { renderedDonations }
+                    </tbody>
+                </Table>
             )
         }
     }
