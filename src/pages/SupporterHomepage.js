@@ -35,7 +35,7 @@ function SupporterHomepage() {
         for (const pledge of supporter.pledges) {
             const body = {};
             body['projectName'] = pledge.project_name;
-            body['id'] = pledge.id;
+            body['id'] = pledge.pledge_id;
             const data = { 'body': JSON.stringify(body) }
             promises.push(aws.post('/viewPledge', data));
         }
@@ -97,6 +97,7 @@ function SupporterHomepage() {
         let musicFilter = document.getElementById('music')
         let filmFilter = document.getElementById('film')
         let gameFilter = document.getElementById('game')
+        let textSearch = document.getElementById('search')
 
         if(musicFilter && musicFilter.checked)
         {
@@ -112,21 +113,34 @@ function SupporterHomepage() {
             filters.push("game")
         }
 
-        console.log(filters)
-
         projects.sort(sortProjectByDate)
         const renderedProjects = projects.map((project, index) => {
             if(project.launched.data[0] === 1 && project.status !== 0 && (filters.includes(project.type) || filters.length === 0) && Date.parse(project.deadline) > Date.parse(new Date())) //thank you back end 
             {
-                return (
-                    <tr id={project.name} key={index}>
-                        <td>{ project.name }</td>
-                        <td>{ project.status }</td>
-                        <td>{ project.type }</td>
-                        <td>{ calculateTimeLeft(project.deadline) }</td>
-                        <td><Button onClick={attemptProjectView}>View</Button></td>
-                    </tr>
-                )
+                if(textSearch && textSearch.value !== 'search' && textSearch.value !== '')
+                {
+                    if(project.name.toLowerCase().includes(textSearch.value)) {
+                        return (
+                            <tr id={project.name} key={index}>
+                                <td>{ project.name }</td>
+                                <td>{ project.status }</td>
+                                <td>{ project.type }</td>
+                                <td>{ calculateTimeLeft(project.deadline) }</td>
+                                <td><Button onClick={attemptProjectView}>View</Button></td>
+                            </tr>
+                        )
+                    }
+                } else {
+                    return (
+                        <tr id={project.name} key={index}>
+                            <td>{ project.name }</td>
+                            <td>{ project.status }</td>
+                            <td>{ project.type }</td>
+                            <td>{ calculateTimeLeft(project.deadline) }</td>
+                            <td><Button onClick={attemptProjectView}>View</Button></td>
+                        </tr>
+                    )
+                }
             }
         })
         return (
@@ -159,7 +173,7 @@ function SupporterHomepage() {
     }
 
     const renderActivePledges = () => {
-        if(supporter.pledges.length === 0)
+        if(pledges.length === 0)
         {
             return (
                 <>
@@ -168,13 +182,13 @@ function SupporterHomepage() {
             )
         } 
         else {
-            const renderedPledges = supporter.pledges.map((pledge, index) => {
-                console.log(pledge)
+            const renderedPledges = pledges.map((pledge, index) => {
                 return (
                     <tr id={pledge.project_name} key={index}>
                         <td>{ pledge.project_name }</td>
-                        <td>{ pledge.pledge_id }</td>
-                        <td>{ pledge.date.substring(0, 10) }</td>
+                        <td>{ pledge.description }</td>
+                        <td>{ pledge.id }</td>
+                        <td>{ '$' + pledge.cost }</td>
                     </tr>
                 )
             })
@@ -184,8 +198,9 @@ function SupporterHomepage() {
                     <thead>
                         <tr>
                             <th style={{width:'20%'}}>Project Name</th>
+                            <th style={{width:'20%'}}>Pledge Description</th>
                             <th style={{width:'20%'}}>Pledge ID</th>
-                            <th style={{width:'20%'}}>Date Claimed</th>
+                            <th style={{width:'20%'}}>Cost</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -213,7 +228,7 @@ function SupporterHomepage() {
             <>
             <Header loggedIn={ true } />
             <p>Loading projects...</p>
-            { getProjects() }
+            {getProjects()}
             </>
         )
     }
@@ -257,6 +272,9 @@ function SupporterHomepage() {
                 <input style = {checkBoxStyle} type="checkbox" id="music" value="music" onChange={() => setCount(count + 1)}/>Music
                 <input style = {checkBoxStyle} type="checkbox" id="film" value="film" onChange={() => setCount(count + 1)} />Film
                 <input style = {checkBoxStyle} type="checkbox" id="game" value="game" onChange={() => setCount(count + 1)}/>Game
+                <input style = {checkBoxStyle} type="text" id="search" defaultValue="search" onClick={(e) => {
+                    e.target.value = ''
+                }} onChange={() => setCount(count + 1)}/>
             </Container>
 
             <Container>
