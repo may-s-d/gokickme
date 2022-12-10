@@ -242,10 +242,6 @@ function SupporterHomepage() {
         else return (
             <>
             <Header loggedIn={ true } />
-            
-            <Container>
-                <p>Budget: {supporter.budget}</p>
-            </Container>
 
             <Container>
                 <h1>Direct Donations</h1>
