@@ -37,6 +37,15 @@ function ViewProject() {
         })
     }
 
+    function getFunding(funding) {
+        if(funding == null) {
+            return '0'
+        }
+        else {
+            return funding
+        }
+    }
+
     const renderProject = () => {
         return (
             <Container id={project.name}>
@@ -51,7 +60,7 @@ function ViewProject() {
                         </Card>
                     <Card style={{ width: '40%' }}>
                         <Card.Body>
-                            <Card.Text>${project.totalFunded} raised out of  ${project.goal_amount} goal</Card.Text>
+                            <Card.Text>${getFunding(project.totalFunded)} raised out of  ${project.goal_amount} goal</Card.Text>
                             <Card.Text>Deadline: {project.deadline}</Card.Text>
                         </Card.Body>
                     </Card>
