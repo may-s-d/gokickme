@@ -173,7 +173,7 @@ function SupporterHomepage() {
         }
         else {
             const renderedDonations = donations.map((donation, index) => {
-                if(donation.project_status[0].status !== 'failed')
+                if(donation.project_status[0].status !== 'failed') //back end please
                 return (
                     <tr id={donation.project_name} key={index}>
                         <td>{ donation.project_name }</td>
