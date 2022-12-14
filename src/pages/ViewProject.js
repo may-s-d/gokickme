@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Card, Container } from 'react-bootstrap';
+import { Button, Card, Container, Table } from 'react-bootstrap';
 import  { Link } from 'react-router-dom';
 import { aws } from '../AWS.js';
 import Header from '../components/Header.js';
@@ -120,6 +120,15 @@ function ViewProject() {
                 Make a direct donation
             </Button> :
             <></>;
+
+        const renderedDonations = project.donations.map((donation, index) => {
+            return (
+                <tr id={donation.date} key={index}>
+                    <td>{ donation.supporter_email }</td>
+                    <td>{ '$' + donation.cost }</td>
+                </tr>
+            )
+        })
             
 
         return (
@@ -150,6 +159,18 @@ function ViewProject() {
                         </Card.Body>
                     </Card>
                 </Container>
+                <h1>Direct Donations</h1>
+                <Table>
+                <thead>
+                        <tr>
+                            <th style={{width:'20%'}}>Supporter</th>
+                            <th style={{width:'20%'}}>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { renderedDonations }
+                    </tbody>
+                </Table>
             </Container>
             </>
         );
