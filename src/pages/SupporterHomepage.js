@@ -47,7 +47,7 @@ function SupporterHomepage() {
             for (const response of responses) {
                 if (response.data.statusCode === 200) {
                     const pledge = response.data.body;
-                    console.log(pledge)
+                    
                     pledges.push(pledge);
                 }
                 else {
@@ -67,6 +67,8 @@ function SupporterHomepage() {
         .then(response => {
             if (response.data.statusCode === 200) {
                 const supporter = response.data.body
+                
+                console.log(supporter)
                 const donations = []
                 for(let donation of supporter.donations) {
                     donations.push(donation)
@@ -171,6 +173,7 @@ function SupporterHomepage() {
         }
         else {
             const renderedDonations = donations.map((donation, index) => {
+                if(donation.project_status[0].status !== 'failed')
                 return (
                     <tr id={donation.project_name} key={index}>
                         <td>{ donation.project_name }</td>
@@ -232,7 +235,8 @@ function SupporterHomepage() {
                     }
             })
 
-            return (
+            return [
+                <h2>Active Pledges</h2>,
                 <Table>
                     <thead>
                         <tr>
@@ -245,7 +249,9 @@ function SupporterHomepage() {
                     <tbody>
                         { renderedPledges }
                     </tbody>
-
+                </Table>,
+                <h2>Successful Pledges</h2>,
+                <Table>
                     <thead>
                         <tr>
                             <th style={{width:'20%'}}>Project Name</th>
@@ -258,7 +264,7 @@ function SupporterHomepage() {
                         {renderedSuccessfulPledges}
                     </tbody>
                 </Table>
-            )
+            ]
         }
 
 
@@ -320,6 +326,7 @@ function SupporterHomepage() {
             </Container>
 
             <Container>
+                <h2>Filter Results</h2>
                 <input style = {checkBoxStyle} type="checkbox" id="music" value="music" onChange={() => setCount(count + 1)}/>Music
                 <input style = {checkBoxStyle} type="checkbox" id="film" value="film" onChange={() => setCount(count + 1)} />Film
                 <input style = {checkBoxStyle} type="checkbox" id="game" value="game" onChange={() => setCount(count + 1)}/>Game
