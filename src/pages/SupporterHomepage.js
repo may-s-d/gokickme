@@ -39,12 +39,15 @@ function SupporterHomepage() {
             body['id'] = pledge.pledge_id;
             const data = { 'body': JSON.stringify(body) }
             promises.push(aws.post('/viewPledge', data));
+            setTimeout(function() {
+              }, 100);
         }
         Promise.all(promises)
         .then(responses => {
             for (const response of responses) {
                 if (response.data.statusCode === 200) {
                     const pledge = response.data.body;
+                    console.log(pledge)
                     pledges.push(pledge);
                 }
                 else {
@@ -156,9 +159,9 @@ function SupporterHomepage() {
                         <th style={{width:'50%'}}>Project Name</th>
                         <th style={{width:'10%'}}>Status</th>
                         <th style={{width:'10%'}}>Type</th>
-                        <th style = {{width: '20%'}}>Days Left</th>
+                        <th style={{width:'20%'}}>Days Left</th>
                         <th style={{width:'10%'}}></th>
-                    </tr>
+                    </tr>   
                 </thead>
                 <tbody>
                     { renderedProjects }
@@ -178,11 +181,10 @@ function SupporterHomepage() {
         }
         else {
             const renderedDonations = donations.map((donation, index) => {
-                console.log(donation)
                 return (
                     <tr id={donation.project_name} key={index}>
                         <td>{ donation.project_name }</td>
-                        <td>{ donation.cost }</td>
+                        <td>{ '$' + donation.cost }</td>
                         <td>{ donation.date.substring(0, 10) }</td>
                     </tr>
                 )
@@ -192,7 +194,7 @@ function SupporterHomepage() {
                     <thead>
                         <tr>
                             <th style={{width:'20%'}}>Project Name</th>
-                            <th style={{width:'20%'}}>Project Cost</th>
+                            <th style={{width:'20%'}}>Donation Amount</th>
                             <th style={{width:'20%'}}>Date</th>
                         </tr>
                     </thead>
@@ -215,14 +217,29 @@ function SupporterHomepage() {
         } 
         else {
             const renderedPledges = pledges.map((pledge, index) => {
+                if(pledge.projectStatus === 'incomplete') {
                 return (
                     <tr id={pledge.project_name} key={index}>
                         <td>{ pledge.project_name }</td>
                         <td>{ pledge.description }</td>
-                        <td>{ pledge.id }</td>
+                        <td>{ pledge.projectStatus }</td>
                         <td>{ '$' + pledge.cost }</td>
                     </tr>
                 )
+                }
+            })
+
+            const renderedSuccessfulPledges = pledges.map((pledge, index) => {
+                if(pledge.projectStatus === 'successful') {
+                    return (
+                    <tr id={pledge.project_name} key={index}>
+                        <td>{ pledge.project_name }</td>
+                        <td>{ pledge.description }</td>
+                        <td>{ pledge.projectStatus }</td>
+                        <td>{ '$' + pledge.cost }</td>
+                    </tr>
+                )
+                    }
             })
 
             return (
@@ -231,12 +248,24 @@ function SupporterHomepage() {
                         <tr>
                             <th style={{width:'20%'}}>Project Name</th>
                             <th style={{width:'20%'}}>Pledge Description</th>
-                            <th style={{width:'20%'}}>Pledge ID</th>
+                            <th style={{width:'20%'}}>Project Status</th>
                             <th style={{width:'20%'}}>Cost</th>
                         </tr>
                     </thead>
                     <tbody>
                         { renderedPledges }
+                    </tbody>
+
+                    <thead>
+                        <tr>
+                            <th style={{width:'20%'}}>Project Name</th>
+                            <th style={{width:'20%'}}>Pledge Description</th>
+                            <th style={{width:'20%'}}>Project Status</th>
+                            <th style={{width:'20%'}}>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {renderedSuccessfulPledges}
                     </tbody>
                 </Table>
             )
