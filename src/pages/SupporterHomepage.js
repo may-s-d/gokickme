@@ -124,22 +124,12 @@ function SupporterHomepage() {
 
         projects.sort(sortProjectByDate)
         const renderedProjects = projects.map((project, index) => {
-            if(project.launched.data[0] === 1 && project.status !== 0 && (filters.includes(project.type) || filters.length === 0) && Date.parse(project.deadline) > Date.parse(new Date())) //thank you back end 
-            {
-                if(textSearch && textSearch.value !== 'search' && textSearch.value !== '')
-                {
-                    if(project.name.toLowerCase().includes(textSearch.value)) {
-                        return (
-                            <tr id={project.name} key={index}>
-                                <td>{ project.name }</td>
-                                <td>{ project.status }</td>
-                                <td>{ project.type }</td>
-                                <td>{ calculateTimeLeft(project.deadline) }</td>
-                                <td><Button onClick={attemptProjectView}>View</Button></td>
-                            </tr>
-                        )
-                    }
-                } else {
+            const isLaunched = project.launched.data[0] === 1;
+            const hasFailed = project.status === 'failed';
+            const inFilters = filters.length === 0 || filters.includes(project.type);
+            if (isLaunched && !hasFailed && inFilters) {
+                const hasSearchInput = textSearch && textSearch.value !== 'search' && textSearch.value !== '';
+                if (!hasSearchInput || project.name.toLowerCase().includes(textSearch.value) || project.story.toLowerCase().includes(textSearch.value)) {
                     return (
                         <tr id={project.name} key={index}>
                             <td>{ project.name }</td>
