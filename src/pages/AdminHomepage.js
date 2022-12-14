@@ -32,7 +32,7 @@ function AdminHomepage() {
             body['projectName'] = projectName;
             const data = { 'body': JSON.stringify(body) }
             console.log(data);
-            aws.post('/deleteProject', data)
+            aws.post('/adminDeleteProject', data)
             .then(response => {
                 if (response.data.statusCode === 200) {
                     updateProjects(undefined); // forces reload
