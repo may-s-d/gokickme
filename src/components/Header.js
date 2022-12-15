@@ -28,7 +28,9 @@ export default function Header(props) {
             const supporterEmail = window.sessionStorage.getItem('supporterEmail');
             if (supporter) {
                 const addFunds = <NavDropdown.Item href='/addFunds'>Add funds</NavDropdown.Item>;
-                const supporterFunds = <Nav.Item style={{color:'white'}}>Funds: ${supporter.budget}</Nav.Item>
+                const supporterFunds = <Nav.Item style={{color:'white', alignSelf:'center', paddingRight:'1rem'}}>
+                    Funds: ${supporter.budget}
+                    </Nav.Item>
                 return (
                     <Nav className='justify-content-end'>
                         {supporterFunds}

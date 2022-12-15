@@ -78,7 +78,7 @@ function Register() {
   return (
     <>
       <Header showAccountButtons={ false } loggedIn={ false }/>
-      <h1>Register designer</h1>
+      <h1>Register</h1>
       <Form.Group controlId='email'>
           <Form.Label>Email</Form.Label>
           <Form.Control type='text' placeholder='Email' autoComplete='off' />

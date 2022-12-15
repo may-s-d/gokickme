@@ -1,5 +1,7 @@
 import  { Navigate } from 'react-router-dom';
-import Header from '../components/Header.js'
+import { Container } from 'react-bootstrap';
+import Header from '../components/Header.js';
+import Kick from '../assets/kick-cartoon.gif';
 
 function Index() {
     const designerEmail = window.sessionStorage.getItem('designerEmail');
@@ -24,12 +26,16 @@ function Index() {
         );
     }
 
-    else return (
+    else {
+        console.log("v1.0.4")
+        return (
         <>
-        <Header loggedIn={ false }/>
-        <p>You made it to homepage v1.0.3</p>
+        <Header loggedIn={ false } />
+        <Container>
+            <img src={Kick} alt='Kick' width='50%' />
+        </Container>
         </>
-    );
+    )}
   }
   
   export default Index;
