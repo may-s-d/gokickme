@@ -1,0 +1,7 @@
+{
+    "host" : "gokickmedb.ct9osjgvash0.us-east-2.rds.amazonaws.com",
+    "user" : "DBAdmin"
+    "password" : "DBAdminPW"
+    "database" : "mydb"
+    "port" : "3306"
+}

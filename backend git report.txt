@@ -1,0 +1,338 @@
+commit 1269b433da8964e3e6a758a8e7249e63257b178e
+Merge: fc177ad df20ac7
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 14 21:15:41 2022 +0000
+
+    Merge branch 'master' of https://git-codecommit.us-east-2.amazonaws.com/v1/repos/WhatsTheProjectAgain
+
+commit fc177adfd2c506ccbfef5285292bcf278e858473
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 14 21:15:31 2022 +0000
+
+    /Supporter donations with project status
+
+commit df20ac786782a594168dae0862019a7bfb1c3b2f
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 14 21:13:01 2022 +0000
+
+    /Supporter now has sloppy way of getting project status of each donation
+
+commit c31bfcfdd066be40c548fbb82ecc863cd739c629
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Dec 14 20:14:39 2022 +0000
+
+    oh boy; reaping sure do be reaping my own soul
+
+commit 9aad26db01c5ad291a48c5a7ed7ca7e5053c2e18
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Dec 14 16:09:37 2022 +0000
+
+    Does Alex know the difference between project.goal and project.goal_amount in reapProjects? Find out this morning at 11am
+
+commit 9464c364b1c4f1068e758bdc968641c7a1d3f40b
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 14 03:46:24 2022 +0000
+
+    FIX VIEW PROJECT AGAIN
+
+commit 37a56c699a9e1ceec6d06230f5ca4ea273da6fbf
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 14 02:36:48 2022 +0000
+
+    Slight edits to ReapProjects and made AdminDeleteProject
+
+commit 2d7b32d9cc6544494f9de1233036341366ba772c
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Dec 14 01:30:51 2022 +0000
+
+    Status go brrr in VeiwPledge, also funny wait need to happen on the end that is front
+
+commit 223a734355e02517c04db35399fd92ce8b515cef
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Sat Dec 10 18:39:48 2022 +0000
+
+    fixed ViewProject and implemented DirectDonation
+
+commit 81bb5363eea70759e7182e42c1c18e6ca983dafb
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Sat Dec 10 17:52:02 2022 +0000
+
+    nowaddedfundstrustme
+
+commit f83ed5c1f3164ea7cd75e75fad1cc1e8727d34c7
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Sat Dec 10 17:48:05 2022 +0000
+
+    Add Funds udpate
+
+commit d0527d6f549d7a0c9e7866ab252b708c9e76fe3e
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Fri Dec 9 18:03:12 2022 +0000
+
+    John has all the funds now; add funding has been increasing it too too too much
+
+commit b8a1b9f794ec6f5d2ad1b8e50c72b4653e058c6d
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 7 23:24:25 2022 +0000
+
+    Fixed /viewProject and refactored sql query in that lambda
+
+commit 66c9d093b0276559ac154454c9bcf39d4b64346b
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 7 23:21:58 2022 +0000
+
+    Fixed /viewProject and refactored sql query in that lambda
+
+commit 4f17a11230ef95aa6339044fac3ab8b4e588e9f5
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 7 17:01:14 2022 +0000
+
+    View Pledge Lambda
+
+commit 20f371080c73db248a35986e280425800fbd896b
+Merge: 841bbe9 390e5ec
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 7 17:00:35 2022 +0000
+
+    Merge branch 'master' of https://git-codecommit.us-east-2.amazonaws.com/v1/repos/WhatsTheProjectAgain
+
+commit 841bbe9bd784dc87ea70f83fa1b222d5ff4db732
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 7 16:57:47 2022 +0000
+
+    View Pledge Lambda
+
+commit 390e5ec098b20d1e5b5709e7c4fdb4351807e586
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Dec 7 16:45:10 2022 +0000
+
+    Finished Delete Pledge all works well within water works
+
+commit c4e76d327012afd11959b6c32361d128bf0491ee
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Dec 7 16:32:20 2022 +0000
+
+    all unsaved work; tread with care
+
+commit da333274deec4954252469621b8926295e4d66ce
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Dec 7 02:50:52 2022 +0000
+
+    claim pledge has been created and should really work, if not complain to Alex cause he understands what the code is, DO NOT FIX YOURSELF
+
+commit a79b6b50a4bb1e865c26d46542c689c246f47b97
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Dec 7 01:55:40 2022 +0000
+
+    supporterEmail needs to be clarified; changed to reflect this tad bit of information
+
+commit 3261eac59a32d95743bbce67517d6318020be2fc
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 7 01:51:19 2022 +0000
+
+    fixed view project
+
+commit b20a99609694f494d375b376a3cc5c15615ec0cb
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Dec 7 01:51:01 2022 +0000
+
+    fixed view project
+
+commit cb2d156be207bed8c9fd2b7f7099efcb9286d3ab
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Dec 7 01:50:25 2022 +0000
+
+    support can be viewed; done perhaps indeed like soo sooo
+
+commit 2444833c7cad76d628ab876a59044501cf5dd79f
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Tue Dec 6 18:46:22 2022 +0000
+
+    mmmmm, launch is a bitch to deal with; why must you have coded the sql like that Benjamin
+
+commit 54f27890dbf41010c614e72ec0f8cb7f8883cc2b
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Mon Dec 5 21:10:21 2022 +0000
+
+    Updated CreatePledge to fix the id key thingy, trust me it should 100% work now
+
+commit f4c7f0de791206dd079883f0fd8caa029eae97f5
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Mon Dec 5 18:28:57 2022 +0000
+
+    ViewProject returns the designers name now; cool
+
+commit 3d93093c4ad0a5bf42ebdff26f1ffb9eebd5caa0
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Sat Dec 3 18:22:46 2022 +0000
+
+    My second lambda; yippeeee
+
+commit 25265851fe6435e3bca3c6397614a8ac88e2f188
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Sat Dec 3 17:54:38 2022 +0000
+
+    This is my first lambda function; yippeee
+
+commit 77993dae972a8516d9eb657dc4274a5411e2bb6c
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Fri Dec 2 18:18:49 2022 +0000
+
+    Lambdadadbaas working
+
+commit a57009bc0cfd711cec1fe68a290e30e18e4577ef
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Thu Dec 1 18:45:25 2022 +0000
+
+    loginDesigner and registerDesigner finished
+
+commit fd77e69b1bc1cfa4b874b2f730619362a6f2b906
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Thu Dec 1 17:59:12 2022 +0000
+
+    current version with some lambdas
+
+commit f7a045869210de512819240c51675b4f970ad42e
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Nov 30 21:33:39 2022 +0000
+
+    Lambda fun continues
+
+commit 5f26518dfc5d0f888dd2db1f6ab60d7656fbe210
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Nov 30 19:59:07 2022 +0000
+
+    bunches of lambdas
+
+commit 592de8e57325e33657fabb285ce1e41af7a3ebbf
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Nov 30 02:09:00 2022 +0000
+
+    DB access json added
+
+commit 02bb241cc19241e1c8f222215cd2fc661ce1fd93
+Author: EC2 Default User <ec2-user@ip-172-31-9-5.us-east-2.compute.internal>
+Date:   Mon Nov 28 04:33:14 2022 +0000
+
+    Add GoKickMe starter hello world folder.
+
+commit 5fe17ba69d6c25b0a3556c5285fbd4b1d723d301
+Author: EC2 Default User <ec2-user@ip-172-31-9-5.us-east-2.compute.internal>
+Date:   Sun Nov 20 02:12:10 2022 +0000
+
+    Rename folders. Webpage doesn't load.
+
+commit 72d3738a2538d55449f1a31fe5795d090eecb77d
+Author: EC2 Default User <ec2-user@ip-172-31-9-5.us-east-2.compute.internal>
+Date:   Sun Nov 20 02:09:45 2022 +0000
+
+    Rename folders. Webpage doesn't load.
+
+commit 6179b37a73f181131e7daf63d6464065b7e00387
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Sat Nov 19 19:03:09 2022 +0000
+
+    No regerts
+
+commit 4607e6f2e63dd4eabbcbcade0f485da5ec37ab10
+Author: EC2 Default User <ec2-user@ip-172-31-9-5.us-east-2.compute.internal>
+Date:   Sat Nov 19 18:45:18 2022 +0000
+
+    Hello world except it's in Ohio this time.
+
+commit 26409387b79f5a42259defe57e7be192ba2ba2d8
+Author: AlexMacDonald <aemacdonald@wpi.edu>
+Date:   Sat Nov 19 18:47:40 2022 +0000
+
+    remove hello world
+
+commit 70534aa4f349844763f623e9ca1415f2c6146476
+Author: AlexMacDonald <aemacdonald@wpi.edu>
+Date:   Sat Nov 19 18:47:00 2022 +0000
+
+    meow
+
+commit bb1255c24624830abc2f566c4eba82e93f8b8ea5
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Sat Nov 19 18:46:01 2022 +0000
+
+    Removed Bad Virginia HelloWorld
+
+commit 48dbdf6f8fd623aef6af6166df2fc5d983667725
+Author: AlexMacDonald <aemacdonald@wpi.edu>
+Date:   Sat Nov 19 18:43:16 2022 +0000
+
+    removing text files
+
+commit 8b098f0b2350f457ce2ef14cbd0f66d422800c8d
+Author: MayDong <mdong@wpi.edu>
+Date:   Fri Nov 18 00:27:39 2022 +0000
+
+    First working Lambda function
+
+commit 8d893f404ca3d04fc69a89e8175f8d26454e5088
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Nov 9 01:38:42 2022 +0000
+
+    Edited mayegg172.txt
+
+commit 021aba17c3bb66a173c4bbf3fd70775d43226ddd
+Author: MayDong <mdong@wpi.edu>
+Date:   Wed Nov 9 01:35:55 2022 +0000
+
+    WINgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txtgit add mayegg173.txt
+
+commit f30b925db1ee9e3c3a09e78089dde7bf395798e9
+Author: EC2 Default User <ec2-user@ip-172-31-7-29.ec2.internal>
+Date:   Wed Nov 9 01:33:53 2022 +0000
+
+    MAY EGG 172 LET ME IN
+
+commit d63aaea5117791bd7fffbf298e8b3eda910361c3
+Merge: 7694e6f 793c4a8
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Nov 9 01:30:55 2022 +0000
+
+    Merge remote-tracking branch 'refs/remotes/origin/master'
+
+commit 7694e6fa1fdf02949767394468d3b7a07bc799b6
+Author: BenKresge <bgkresge@wpi.edu>
+Date:   Wed Nov 9 01:30:08 2022 +0000
+
+    This is my first commit
+
+commit 793c4a801e9251618045c491c37a27d16464b108
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Wed Nov 9 01:29:44 2022 +0000
+
+    This is Other Alex's second commit
+
+commit 12fe226f47d0d4e526d15c0bd1227463ac4f6485
+Author: AlexMacDonald <aemacdonald@wpi.edu>
+Date:   Wed Nov 9 01:21:55 2022 +0000
+
+    alexcommit
+
+commit aff2a7e8ac68bd63690bfd808120cae0e3c1f50d
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Sat Nov 5 17:58:11 2022 +0000
+
+    help
+
+commit 0f301c54102cbe672489a5fabaab7cbef45d1519
+Author: AlexPietrick <ajpietrick@wpi.edu>
+Date:   Sat Nov 5 17:56:13 2022 +0000
+
+    MAY FIRST COMMIT
+
+commit 7d6adff8971fc7036e9031c049ea59095a611d1d
+Author: AlexMacDonald <aemacdonald@wpi.edu>
+Date:   Sat Nov 5 17:30:28 2022 +0000
+
+    for the love of god please be my name
+
+commit d0649a83f2706078f7f4d0152007857474e691cd
+Author: EC2 Default User <ec2-user@ip-172-31-37-195.us-east-2.compute.internal>
+Date:   Sat Nov 5 17:24:36 2022 +0000
+
+    FIRST COMMIT
